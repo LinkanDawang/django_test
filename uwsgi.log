@@ -1,0 +1,356 @@
+*** Starting uWSGI 2.0.18 (64bit) on [Wed Apr 10 13:09:57 2019] ***
+compiled with version: 5.4.0 20160609 on 10 April 2019 05:09:20
+os: Linux-4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019
+nodename: iZuf6hlr58orxdht0o9debZ
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /usr/local/projects/django_test
+writing pidfile to uwsgi.pid
+detected binary path: /opt/virtualenvs/django_test/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /usr/local/projects/django_test
+your processes number limit is 7849
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:8080 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.5.2 (default, Nov 12 2018, 13:43:14)  [GCC 5.4.0 20160609]
+Set PythonHome to /opt/virtualenvs/django_test
+Python main interpreter initialized at 0x1056180
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416720 bytes (406 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x1056180 pid: 19091 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 19091)
+spawned uWSGI worker 1 (pid: 19093, cores: 2)
+spawned uWSGI worker 2 (pid: 19094, cores: 2)
+spawned uWSGI worker 3 (pid: 19095, cores: 2)
+spawned uWSGI worker 4 (pid: 19096, cores: 2)
+[pid: 19096|app: 0|req: 1/1] 27.115.102.138 () {42 vars in 763 bytes} [Wed Apr 10 13:10:02 2019] GET / => generated 31500 bytes in 26 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19096|app: 0|req: 2/2] 27.115.102.138 () {40 vars in 732 bytes} [Wed Apr 10 13:10:10 2019] GET / => generated 31500 bytes in 10 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 1/3] 27.115.102.138 () {42 vars in 764 bytes} [Wed Apr 10 13:11:42 2019] GET / => generated 31500 bytes in 25 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 2/4] 151.241.243.156 () {36 vars in 522 bytes} [Wed Apr 10 13:11:43 2019] GET / => generated 31500 bytes in 9 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 3/5] 27.115.102.138 () {40 vars in 732 bytes} [Wed Apr 10 13:13:00 2019] GET / => generated 31500 bytes in 30 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 4/6] 27.115.102.138 () {40 vars in 733 bytes} [Wed Apr 10 13:13:17 2019] GET / => generated 31500 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 5/7] 27.115.102.138 () {40 vars in 733 bytes} [Wed Apr 10 13:14:58 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 6/8] 27.115.102.138 () {42 vars in 764 bytes} [Wed Apr 10 13:16:50 2019] GET / => generated 31500 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 7/9] 27.115.102.138 () {40 vars in 746 bytes} [Wed Apr 10 13:18:23 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 8/10] 27.115.102.138 () {42 vars in 772 bytes} [Wed Apr 10 13:19:17 2019] GET / => generated 31500 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 9/11] 27.115.102.138 () {40 vars in 741 bytes} [Wed Apr 10 13:22:40 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 10/12] 27.115.102.138 () {40 vars in 741 bytes} [Wed Apr 10 13:23:48 2019] GET / => generated 31500 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 11/13] 27.115.102.138 () {40 vars in 676 bytes} [Wed Apr 10 13:24:04 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 12/14] 95.170.201.34 () {32 vars in 460 bytes} [Wed Apr 10 13:40:49 2019] GET / => generated 31500 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 13/15] 27.115.102.138 () {40 vars in 741 bytes} [Wed Apr 10 13:56:41 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 14/16] 27.115.102.138 () {42 vars in 765 bytes} [Wed Apr 10 13:59:41 2019] GET / => generated 31500 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 15/17] 27.115.102.138 () {42 vars in 772 bytes} [Wed Apr 10 14:02:32 2019] GET / => generated 31454 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 16/18] 27.115.102.138 () {42 vars in 789 bytes} [Wed Apr 10 14:02:35 2019] GET / => generated 31454 bytes in 6 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 17/19] 27.115.102.138 () {42 vars in 789 bytes} [Wed Apr 10 14:02:38 2019] GET / => generated 31454 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 18/20] 27.115.102.138 () {40 vars in 741 bytes} [Wed Apr 10 14:02:55 2019] GET / => generated 31454 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 19/21] 27.115.102.138 () {42 vars in 765 bytes} [Wed Apr 10 14:13:05 2019] GET / => generated 31454 bytes in 7 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/base.py", line 156, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/base.py", line 154, in _get_response
+    response = response.render()
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 106, in render
+    self.content = self.rendered_content
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[pid: 19094|app: 0|req: 20/22] 27.115.102.138 () {42 vars in 772 bytes} [Wed Apr 10 14:13:49 2019] GET / => generated 72641 bytes in 57 msecs (HTTP/1.1 500) 4 headers in 129 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 21/23] 27.115.102.138 () {40 vars in 697 bytes} [Wed Apr 10 14:13:49 2019] GET /favicon.ico => generated 2202 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 22/24] 27.115.102.138 () {42 vars in 771 bytes} [Wed Apr 10 14:16:26 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 23/25] 27.115.102.138 () {42 vars in 765 bytes} [Wed Apr 10 14:19:36 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 1/26] 27.115.102.138 () {42 vars in 772 bytes} [Wed Apr 10 14:19:39 2019] GET / => generated 2872 bytes in 18 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 24/27] 27.115.102.138 () {42 vars in 772 bytes} [Wed Apr 10 14:19:40 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 1/28] 27.115.102.138 () {40 vars in 741 bytes} [Wed Apr 10 14:19:45 2019] GET / => generated 2872 bytes in 17 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 25/29] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 14:19:52 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19096|app: 0|req: 3/30] 27.115.102.138 () {40 vars in 691 bytes} [Wed Apr 10 14:19:52 2019] GET /favicon.ico => generated 2199 bytes in 4 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 2/31] 27.115.102.138 () {42 vars in 765 bytes} [Wed Apr 10 14:19:55 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 2/32] 27.115.102.138 () {40 vars in 673 bytes} [Wed Apr 10 14:20:28 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 3/33] 27.115.102.138 () {38 vars in 611 bytes} [Wed Apr 10 14:20:28 2019] GET /favicon.ico => generated 2199 bytes in 4 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 26/34] 101.227.139.178 () {36 vars in 543 bytes} [Wed Apr 10 14:20:36 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.0 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 3/35] 27.115.102.138 () {38 vars in 757 bytes} [Wed Apr 10 14:20:42 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 4/36] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 14:20:59 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19096|app: 0|req: 4/37] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 14:21:00 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 27/38] 101.91.60.11 () {36 vars in 594 bytes} [Wed Apr 10 14:21:34 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 4/39] 61.151.178.163 () {40 vars in 659 bytes} [Wed Apr 10 14:21:38 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 28/40] 112.17.241.20 () {40 vars in 708 bytes} [Wed Apr 10 14:39:33 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 5/41] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 14:40:06 2019] GET / => generated 2872 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 110 bytes (1 switches on core 1)
+Internal Server Error: /
+Traceback (most recent call last):
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/base.py", line 156, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/core/handlers/base.py", line 154, in _get_response
+    response = response.render()
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 106, in render
+    self.content = self.rendered_content
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 81, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/response.py", line 63, in resolve_template
+    return select_template(template, using=self.using)
+  File "/opt/virtualenvs/django_test/lib/python3.5/site-packages/django/template/loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(', '.join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: index.html
+[pid: 19094|app: 0|req: 29/42] 27.115.102.138 () {40 vars in 673 bytes} [Wed Apr 10 14:43:32 2019] GET / => generated 72418 bytes in 38 msecs (HTTP/1.1 500) 4 headers in 129 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 30/43] 27.115.102.138 () {38 vars in 611 bytes} [Wed Apr 10 14:43:33 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 6/44] 27.115.102.138 () {40 vars in 672 bytes} [Wed Apr 10 14:43:38 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 7/45] 112.17.241.113 () {40 vars in 708 bytes} [Wed Apr 10 14:44:21 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 8/46] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 14:45:15 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 31/47] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 14:45:38 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 32/48] 120.204.17.69 () {42 vars in 725 bytes} [Wed Apr 10 14:45:38 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19096|app: 0|req: 5/49] 223.166.151.234 () {42 vars in 727 bytes} [Wed Apr 10 14:45:38 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19096|app: 0|req: 6/50] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 14:45:39 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 33/51] 112.17.241.113 () {40 vars in 708 bytes} [Wed Apr 10 14:46:18 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 34/52] 91.22.108.234 () {30 vars in 432 bytes} [Wed Apr 10 15:12:59 2019] GET / => generated 21505 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 35/53] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 15:15:21 2019] GET / => generated 21433 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 36/54] 27.115.102.138 () {38 vars in 600 bytes} [Wed Apr 10 15:15:40 2019] GET / => generated 21433 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 9/55] 27.115.102.138 () {38 vars in 533 bytes} [Wed Apr 10 15:15:40 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 10/56] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 15:32:15 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 37/57] 58.246.221.142 () {42 vars in 726 bytes} [Wed Apr 10 15:32:15 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19095|app: 0|req: 5/58] 183.192.164.79 () {42 vars in 726 bytes} [Wed Apr 10 15:32:15 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19095|app: 0|req: 6/59] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 15:32:18 2019] GET /favicon.ico => generated 2199 bytes in 6 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 38/60] 211.103.82.167 () {48 vars in 1022 bytes} [Wed Apr 10 15:32:36 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 39/61] 223.104.210.14 () {40 vars in 758 bytes} [Wed Apr 10 15:32:38 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 40/62] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 15:33:14 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 41/63] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 15:33:17 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 42/64] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 15:34:10 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 43/65] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 15:34:22 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 44/66] 219.133.46.86 () {48 vars in 1021 bytes} [Wed Apr 10 15:34:46 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 45/67] 112.17.241.20 () {40 vars in 708 bytes} [Wed Apr 10 15:38:15 2019] GET / => generated 21507 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 46/68] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 15:43:50 2019] GET / => generated 21488 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 47/69] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 15:45:12 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 48/70] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 15:45:23 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 11/71] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 15:45:36 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 12/72] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 15:45:39 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 49/73] 101.226.225.59 () {44 vars in 976 bytes} [Wed Apr 10 15:46:55 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 13/74] 223.104.210.14 () {40 vars in 883 bytes} [Wed Apr 10 15:46:56 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 50/75] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 15:47:55 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 51/76] 172.104.108.109 () {34 vars in 397 bytes} [Wed Apr 10 15:48:24 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 52/77] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 15:48:58 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 53/78] 27.115.102.138 () {40 vars in 738 bytes} [Wed Apr 10 15:49:11 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 54/79] 124.89.225.132 () {40 vars in 711 bytes} [Wed Apr 10 15:56:31 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 55/80] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 15:56:40 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 14/81] 124.89.225.132 () {40 vars in 711 bytes} [Wed Apr 10 15:56:47 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 56/82] 101.91.60.110 () {36 vars in 665 bytes} [Wed Apr 10 15:57:30 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 57/83] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 15:57:56 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 58/84] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 15:58:13 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 59/85] 101.226.225.59 () {44 vars in 976 bytes} [Wed Apr 10 15:58:27 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 15/86] 58.246.221.73 () {42 vars in 725 bytes} [Wed Apr 10 15:58:27 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19096|app: 0|req: 7/87] 223.104.210.14 () {40 vars in 883 bytes} [Wed Apr 10 15:58:28 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19095|app: 0|req: 7/88] 101.226.225.59 () {46 vars in 1007 bytes} [Wed Apr 10 15:58:40 2019] GET / => generated 21532 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 60/89] 27.115.102.138 () {42 vars in 761 bytes} [Wed Apr 10 16:00:49 2019] GET / => generated 21662 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 61/90] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:02:19 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 62/91] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:03:27 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 63/92] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:05:35 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 64/93] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 16:08:15 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 65/94] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 16:08:16 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 66/95] 101.227.139.178 () {36 vars in 543 bytes} [Wed Apr 10 16:10:45 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.0 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 67/96] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:10:56 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 16/97] 124.89.225.132 () {40 vars in 711 bytes} [Wed Apr 10 16:11:05 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 17/98] 124.89.225.132 () {40 vars in 711 bytes} [Wed Apr 10 16:11:11 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19096|app: 0|req: 8/99] 124.89.225.132 () {40 vars in 711 bytes} [Wed Apr 10 16:11:16 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19095|app: 0|req: 8/100] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:11:21 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 68/101] 113.109.118.216 () {40 vars in 682 bytes} [Wed Apr 10 16:11:36 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 18/102] 113.109.118.216 () {36 vars in 569 bytes} [Wed Apr 10 16:11:36 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 19/103] 113.109.118.216 () {40 vars in 668 bytes} [Wed Apr 10 16:11:36 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 69/104] 211.138.117.225 () {40 vars in 711 bytes} [Wed Apr 10 16:11:45 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19096|app: 0|req: 9/105] 117.136.32.58 () {40 vars in 711 bytes} [Wed Apr 10 16:12:14 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 70/106] 211.138.117.225 () {40 vars in 711 bytes} [Wed Apr 10 16:12:31 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /acadmin.php
+[pid: 19095|app: 0|req: 9/107] 198.167.223.52 () {36 vars in 593 bytes} [Wed Apr 10 16:12:40 2019] GET /acadmin.php => generated 2189 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 71/108] 223.104.170.73 () {40 vars in 709 bytes} [Wed Apr 10 16:13:58 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 20/109] 223.104.170.73 () {40 vars in 709 bytes} [Wed Apr 10 16:14:49 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 10/110] 180.163.220.3 () {38 vars in 635 bytes} [Wed Apr 10 16:18:03 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 72/111] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 16:18:59 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 73/112] 42.236.10.75 () {38 vars in 667 bytes} [Wed Apr 10 16:21:05 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 74/113] 124.160.219.245 () {40 vars in 710 bytes} [Wed Apr 10 16:24:10 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 75/114] 117.169.33.129 () {38 vars in 666 bytes} [Wed Apr 10 16:33:44 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 76/115] 178.150.100.118 () {32 vars in 468 bytes} [Wed Apr 10 17:07:25 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 77/116] 61.151.178.170 () {44 vars in 963 bytes} [Wed Apr 10 17:15:26 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 11/117] 61.151.178.170 () {42 vars in 726 bytes} [Wed Apr 10 17:15:26 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19096|app: 0|req: 10/118] 223.167.152.14 () {42 vars in 726 bytes} [Wed Apr 10 17:15:26 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 78/119] 117.136.8.52 () {40 vars in 872 bytes} [Wed Apr 10 17:15:32 2019] GET /favicon.ico => generated 2199 bytes in 4 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 79/120] 61.151.178.170 () {44 vars in 963 bytes} [Wed Apr 10 17:15:58 2019] GET / => generated 21639 bytes in 2 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 21/121] 117.136.8.52 () {40 vars in 872 bytes} [Wed Apr 10 17:15:59 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 80/122] 196.52.43.89 () {30 vars in 418 bytes} [Wed Apr 10 17:37:50 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.0 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 22/123] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 18:28:00 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 81/124] 27.115.102.138 () {42 vars in 769 bytes} [Wed Apr 10 18:28:21 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 82/125] 163.177.90.152 () {38 vars in 631 bytes} [Wed Apr 10 18:28:42 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 23/126] 27.115.102.138 () {40 vars in 746 bytes} [Wed Apr 10 18:29:48 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 83/127] 27.115.102.138 () {40 vars in 699 bytes} [Wed Apr 10 18:29:53 2019] GET /favicon.ico => generated 2199 bytes in 4 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 84/128] 27.115.102.138 () {42 vars in 777 bytes} [Wed Apr 10 18:30:33 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 85/129] 219.133.46.83 () {48 vars in 1021 bytes} [Wed Apr 10 18:48:50 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 86/130] 223.104.210.14 () {38 vars in 715 bytes} [Wed Apr 10 18:48:50 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 24/131] 223.104.210.14 () {44 vars in 948 bytes} [Wed Apr 10 18:49:06 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 87/132] 223.104.210.14 () {44 vars in 905 bytes} [Wed Apr 10 18:49:51 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 25/133] 223.104.210.14 () {44 vars in 948 bytes} [Wed Apr 10 18:50:09 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 88/134] 223.104.210.14 () {44 vars in 905 bytes} [Wed Apr 10 18:50:13 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 89/135] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 18:50:56 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19095|app: 0|req: 12/136] 61.151.178.169 () {42 vars in 726 bytes} [Wed Apr 10 18:50:56 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 26/137] 223.167.152.126 () {42 vars in 727 bytes} [Wed Apr 10 18:50:56 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 90/138] 223.104.210.14 () {40 vars in 895 bytes} [Wed Apr 10 18:50:58 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 91/139] 222.239.231.133 () {26 vars in 282 bytes} [Wed Apr 10 18:57:31 2019] HEAD / => generated 21639 bytes in 1 msecs (HTTP/1.0 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /echo.php
+[pid: 19094|app: 0|req: 92/140] 139.162.88.63 () {32 vars in 418 bytes} [Wed Apr 10 18:58:32 2019] GET /echo.php?info=1234567890 => generated 2203 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 93/141] 27.115.102.138 () {42 vars in 762 bytes} [Wed Apr 10 19:20:28 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 94/142] 27.115.102.138 () {40 vars in 691 bytes} [Wed Apr 10 19:20:31 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 95/143] 101.226.225.59 () {44 vars in 976 bytes} [Wed Apr 10 19:33:34 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 96/144] 61.129.10.43 () {42 vars in 724 bytes} [Wed Apr 10 19:33:34 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 27/145] 223.167.152.124 () {42 vars in 727 bytes} [Wed Apr 10 19:33:34 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19096|app: 0|req: 11/146] 223.104.210.14 () {40 vars in 883 bytes} [Wed Apr 10 19:33:35 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 28/147] 101.226.225.59 () {46 vars in 1019 bytes} [Wed Apr 10 19:34:02 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 97/148] 101.226.225.59 () {44 vars in 976 bytes} [Wed Apr 10 19:39:46 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 98/149] 101.86.79.255 () {40 vars in 884 bytes} [Wed Apr 10 19:39:47 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 99/150] 61.151.207.186 () {36 vars in 641 bytes} [Wed Apr 10 19:40:46 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 100/151] 101.226.225.59 () {44 vars in 988 bytes} [Wed Apr 10 19:41:40 2019] GET / => generated 21639 bytes in 2 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19095|app: 0|req: 13/152] 101.86.79.255 () {40 vars in 896 bytes} [Wed Apr 10 19:41:40 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19095|app: 0|req: 14/153] 101.86.79.255 () {40 vars in 666 bytes} [Wed Apr 10 19:46:40 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 101/154] 101.86.79.255 () {40 vars in 638 bytes} [Wed Apr 10 19:46:41 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 102/155] 101.86.79.255 () {40 vars in 666 bytes} [Wed Apr 10 19:47:36 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 29/156] 101.86.79.255 () {40 vars in 666 bytes} [Wed Apr 10 19:47:46 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19093|app: 0|req: 30/157] 101.86.79.255 () {40 vars in 666 bytes} [Wed Apr 10 19:47:59 2019] GET / => generated 21639 bytes in 2 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 103/158] 101.86.79.255 () {40 vars in 657 bytes} [Wed Apr 10 19:48:47 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 104/159] 101.86.79.255 () {42 vars in 734 bytes} [Wed Apr 10 19:49:31 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 105/160] 101.86.79.255 () {42 vars in 734 bytes} [Wed Apr 10 19:50:22 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 106/161] 101.86.79.255 () {42 vars in 734 bytes} [Wed Apr 10 19:50:35 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 107/162] 101.86.79.255 () {42 vars in 742 bytes} [Wed Apr 10 19:51:05 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 108/163] 101.86.79.255 () {42 vars in 742 bytes} [Wed Apr 10 19:51:19 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 109/164] 101.86.79.255 () {42 vars in 741 bytes} [Wed Apr 10 19:53:31 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 110/165] 101.86.79.255 () {38 vars in 514 bytes} [Wed Apr 10 19:54:40 2019] GET /favicon.ico => generated 2199 bytes in 4 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 111/166] 101.86.79.255 () {38 vars in 514 bytes} [Wed Apr 10 19:55:18 2019] GET /favicon.ico => generated 2199 bytes in 5 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19093|app: 0|req: 31/167] 101.86.79.255 () {38 vars in 514 bytes} [Wed Apr 10 19:55:20 2019] GET /favicon.ico => generated 2199 bytes in 5 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 112/168] 182.162.21.41 () {26 vars in 280 bytes} [Wed Apr 10 20:00:08 2019] HEAD / => generated 21639 bytes in 1 msecs (HTTP/1.0 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19093|app: 0|req: 32/169] 88.237.203.61 () {32 vars in 459 bytes} [Wed Apr 10 20:03:36 2019] GET / => generated 21639 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 113/170] 101.86.79.255 () {42 vars in 734 bytes} [Wed Apr 10 20:05:21 2019] GET / => generated 21816 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 114/171] 101.86.79.255 () {42 vars in 734 bytes} [Wed Apr 10 20:05:31 2019] GET / => generated 21816 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 115/172] 101.86.79.255 () {40 vars in 650 bytes} [Wed Apr 10 20:09:31 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 116/173] 101.86.79.255 () {40 vars in 650 bytes} [Wed Apr 10 20:09:36 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 117/174] 101.86.79.255 () {40 vars in 650 bytes} [Wed Apr 10 20:10:42 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 118/175] 101.86.79.255 () {40 vars in 650 bytes} [Wed Apr 10 20:11:22 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 119/176] 101.86.79.255 () {40 vars in 650 bytes} [Wed Apr 10 20:12:29 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 120/177] 101.86.79.255 () {40 vars in 701 bytes} [Wed Apr 10 20:16:04 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 121/178] 101.86.79.255 () {40 vars in 701 bytes} [Wed Apr 10 20:16:12 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 122/179] 101.226.225.59 () {44 vars in 976 bytes} [Wed Apr 10 20:16:47 2019] GET / => generated 21826 bytes in 2 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19094|app: 0|req: 123/180] 101.86.79.255 () {40 vars in 884 bytes} [Wed Apr 10 20:16:48 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+Not Found: /cache/global/img/gs.gif
+[pid: 19094|app: 0|req: 124/181] 80.82.70.187 () {32 vars in 431 bytes} [Wed Apr 10 20:22:43 2019] GET /cache/global/img/gs.gif => generated 2227 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 125/182] 187.57.94.246 () {32 vars in 460 bytes} [Wed Apr 10 23:09:01 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 126/183] 187.10.75.79 () {32 vars in 459 bytes} [Wed Apr 10 23:56:17 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 127/184] 177.102.58.173 () {32 vars in 460 bytes} [Thu Apr 11 00:14:27 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 128/185] 61.0.178.51 () {32 vars in 457 bytes} [Thu Apr 11 02:17:23 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19094|app: 0|req: 129/186] 177.9.81.31 () {32 vars in 458 bytes} [Thu Apr 11 02:47:56 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 130/187] 212.129.50.159 () {30 vars in 333 bytes} [Thu Apr 11 04:52:06 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /cache/global/img/gs.gif
+[pid: 19094|app: 0|req: 131/188] 80.82.70.187 () {32 vars in 431 bytes} [Thu Apr 11 06:23:50 2019] GET /cache/global/img/gs.gif => generated 2227 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 132/189] 27.115.102.138 () {40 vars in 726 bytes} [Thu Apr 11 09:32:59 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+Not Found: /favicon.ico
+[pid: 19095|app: 0|req: 15/190] 27.115.102.138 () {40 vars in 679 bytes} [Thu Apr 11 09:32:59 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 133/191] 27.115.102.138 () {40 vars in 738 bytes} [Thu Apr 11 09:38:33 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 0)
+Not Found: /favicon.ico
+[pid: 19095|app: 0|req: 16/192] 27.115.102.138 () {40 vars in 691 bytes} [Thu Apr 11 09:38:33 2019] GET /favicon.ico => generated 2199 bytes in 3 msecs (HTTP/1.1 404) 3 headers in 102 bytes (1 switches on core 0)
+[pid: 19094|app: 0|req: 134/193] 27.115.102.138 () {42 vars in 762 bytes} [Thu Apr 11 10:11:52 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+[pid: 19095|app: 0|req: 17/194] 27.115.102.138 () {42 vars in 769 bytes} [Thu Apr 11 10:11:59 2019] GET / => generated 21826 bytes in 1 msecs (HTTP/1.1 200) 3 headers in 111 bytes (1 switches on core 1)
+...brutally killing workers...
+Gracefully killing worker 1 (pid: 19093)...
+worker 1 buried after 1 seconds
+worker 2 buried after 1 seconds
+worker 3 buried after 1 seconds
+worker 4 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /usr/local/projects/django_test
+closing all non-uwsgi socket fds > 2 (max_fd = 65535)...
+found fd 3 mapped to socket 0 (127.0.0.1:8080)
+running /opt/virtualenvs/django_test/bin/uwsgi
+[uWSGI] getting INI configuration from uwsgi.ini
+*** Starting uWSGI 2.0.18 (64bit) on [Thu Apr 11 11:04:38 2019] ***
+compiled with version: 5.4.0 20160609 on 10 April 2019 05:09:20
+os: Linux-4.4.0-142-generic #168-Ubuntu SMP Wed Jan 16 21:00:45 UTC 2019
+nodename: iZuf6hlr58orxdht0o9debZ
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 1
+current working directory: /usr/local/projects/django_test
+detected binary path: /opt/virtualenvs/django_test/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /usr/local/projects/django_test
+your processes number limit is 7849
+your memory page size is 4096 bytes
+detected max file descriptor number: 65535
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address 127.0.0.1:8080 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+Python version: 3.5.2 (default, Nov 12 2018, 13:43:14)  [GCC 5.4.0 20160609]
+Set PythonHome to /opt/virtualenvs/django_test
+Python main interpreter initialized at 0xdc6cc0
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+python threads support enabled
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 416720 bytes (406 KB) for 8 cores
+*** Operational MODE: preforking+threaded ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0xdc6cc0 pid: 19091 (default app)
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+gracefully (RE)spawned uWSGI master process (pid: 19091)
+spawned uWSGI worker 1 (pid: 22118, cores: 2)
+spawned uWSGI worker 2 (pid: 22119, cores: 2)
+spawned uWSGI worker 3 (pid: 22120, cores: 2)
+spawned uWSGI worker 4 (pid: 22121, cores: 2)
