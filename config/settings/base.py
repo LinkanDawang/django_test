@@ -74,22 +74,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'config.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ]
-        },
-    }
-]
-
 WSGI_APPLICATION = 'config.wsgi.application'
 
 
@@ -137,10 +121,29 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collect_dir')  # 收集静态文件
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'templates')
+]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': STATICFILES_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
+        },
+    }
 ]
 
 AUTH_USER_MODEL = 'user.Users'
@@ -294,7 +297,18 @@ EMAIL_USE_TLS = True
 FDFS_CLIENT_CONF = os.path.join(BASE_DIR, "config/dfs_client.conf")
 FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
 
-DEFAULT_FILE_STORAGE = "apps.utils.dfs_storage.FastDfsStorage"
+# DEFAULT_FILE_STORAGE = "apps.utils.dfs_storage.FastDfsStorage"
 
 # SimplePro
 SIMPLEUI_STATIC_OFFLINE = True
+
+# Storage
+STATICFILES_STORAGE = "apps.core.storages.QiniuStorage"
+DEFAULT_FILE_STORAGE = "apps.core.storages.QiniuStorage"
+AWS_ACCESS_KEY_ID = "ZR0Jrp7a16J0ur1iH6s4tPjI9ZP8Nd64eKgAz2Y6"
+AWS_SECRET_ACCESS_KEY = "0z09qqbA-j02tmOuZ_GcZdDqMJKrORGZR2HWCRk5"
+AWS_STORAGE_BUCKET_NAME = "djanotest"
+AWS_S3_ENDPOINT = "s3-cn-east-1.qiniucs.com"
+AWS_S3_ENDPOINT_URL = f"http://{AWS_S3_ENDPOINT}"
+QINIU_URL = "http://qotks07z6.hd-bkt.clouddn.com"
+AWS_S3_ADDRESSING_STYLE = "virtual"
