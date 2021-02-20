@@ -1,0 +1,5 @@
+__pycache__
+/static_collect_dir
+/logs
+/.idea
+.DS_Store
