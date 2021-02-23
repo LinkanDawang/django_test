@@ -10,6 +10,7 @@ class QiniuStorage(Storage):
     bucket_name = settings.AWS_STORAGE_BUCKET_NAME
 
     def exists(self, name):
+        self.generate_filename()
         return False
 
     def url(self, name):

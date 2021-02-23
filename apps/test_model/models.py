@@ -26,3 +26,13 @@ class Supplier(BaseModel):
         verbose_name = verbose_name_plural = "供应商表"
         managed = True
         db_table = "supplier"
+
+
+class UploadFile(BaseModel):
+    file = models.FileField(upload_to="upload/", verbose_name="上传文件")
+    file_temp = models.CharField(max_length=1024, verbose_name="文件路径")
+
+    class Meta:
+        verbose_name = verbose_name_plural = "上传文件"
+        managed = True
+        db_table = "files"

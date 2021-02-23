@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
-from apps.user.models import Users
+from apps.user.models import User
 from apps.utils.responses import CustomResponse
 
 
@@ -38,7 +38,7 @@ class RegisterView(View):
             return JsonResponse(data={"code": 404, "msg": "邮箱格式错误"})
 
         try:
-            user = Users.objects.create_user(
+            user = User.objects.create_user(
                 username=username,
                 # cell_phone=phonenum,
                 email=email,
@@ -68,8 +68,8 @@ class ActiveView(View):
         except itsdangerous.SignatureExpired:
             return HttpResponse("激活超时")
         try:
-            user = Users.objects.get(id=result["confirm"])
-        except Users.DoesNotExist:
+            user = User.objects.get(id=result["confirm"])
+        except User.DoesNotExist:
             return HttpResponse('用户不存在')
         if user.is_active:
             return HttpResponse('用户已激活')

@@ -9,7 +9,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 # Create your models here.
 
 
-class Users(AbstractUser, BaseModel):
+class User(AbstractUser, BaseModel):
     """用户"""
     cell_phone = models.CharField(max_length=11, blank=True, verbose_name='手机号码')
 

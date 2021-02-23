@@ -35,9 +35,9 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
-    'simplepro',
+    # 'simplepro',
     'simpleui',
-    'import_export',
+    # 'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,9 +66,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.utils.middlewares.NewCustomMiddleware',
-    'apps.utils.middlewares.UploadFileMiddleware',
+    # 'apps.utils.middlewares.UploadFileMiddleware',
     # # 顺序与INSTALLED_APPS注册的顺序一致，需要在SilkyMiddleware之前，否则会报错
-    'simplepro.middlewares.SimpleMiddleware',
+    # 'simplepro.middlewares.SimpleMiddleware',
     'silk.middleware.SilkyMiddleware',
 ]
 
@@ -123,7 +123,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collect_dir')  # 收集静态文件
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'templates')
 ]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -133,7 +132,7 @@ STATICFILES_FINDERS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': STATICFILES_DIRS,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -146,7 +145,7 @@ TEMPLATES = [
     }
 ]
 
-AUTH_USER_MODEL = 'user.Users'
+AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = "/api/user/login/"
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
 
@@ -300,11 +299,15 @@ FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
 # DEFAULT_FILE_STORAGE = "apps.utils.dfs_storage.FastDfsStorage"
 
 # SimplePro
-SIMPLEUI_STATIC_OFFLINE = True
+# SIMPLEUI_STATIC_OFFLINE = True
+
+# Media files
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+MEDIA_URL = '/media/'
 
 # Storage
-STATICFILES_STORAGE = "apps.core.storages.QiniuStorage"
-DEFAULT_FILE_STORAGE = "apps.core.storages.QiniuStorage"
+# STATICFILES_STORAGE = "apps.core.storages.QiniuStorage"
+# DEFAULT_FILE_STORAGE = "apps.core.storages.QiniuStorage"
 AWS_ACCESS_KEY_ID = "ZR0Jrp7a16J0ur1iH6s4tPjI9ZP8Nd64eKgAz2Y6"
 AWS_SECRET_ACCESS_KEY = "0z09qqbA-j02tmOuZ_GcZdDqMJKrORGZR2HWCRk5"
 AWS_STORAGE_BUCKET_NAME = "djanotest"
