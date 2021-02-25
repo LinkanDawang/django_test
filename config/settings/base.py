@@ -87,12 +87,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_test',
-        # 'HOST': '127.0.0.1',
-        'HOST': '47.103.4.19',
-        'PORT': '3306',
-        'USER': 'django_test',
-        'PASSWORD': 'test@2020',
+        'NAME': env.str("DATABASE_NAME"),
+        'HOST': env.str("DATABASE_HOST"),
+        'PORT': env.str("DATABASE_PORT"),
+        'USER': env.str("DATABASE_USER"),
+        'PASSWORD': env.str("DATABASE_PASSWORD"),
     }
 }
 
@@ -168,116 +167,6 @@ for path in [COLLECT_LOG_DIR, INFO_LOG_DIR, SERVER_LOG_DIR, REQUEST_LOG_DIR, CEL
     if not os.path.exists(path):
         os.makedirs(path)
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,  # 禁用已经存在的logger实例
-#     # 日志保存格式
-#     'formatters': {
-#         'standard': {
-#             'format': '[%(asctime)s][file:%(filename)s][lineno:%(lineno)d]'
-#                       '[%(levelname)s][%(message)s]'
-#         },
-#         'normal': {
-#             'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
-#         },
-#         'collect': {
-#             'format': '%(message)s'
-#         },
-#         'console': {
-#             'format': '[%(asctime)s] %(message)s'
-#         },
-#         'sql': {
-#             'format': '[%(asctime)s] %(module)s %(filename)s %(message)s'
-#         }
-#     },
-#     # 过滤器
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse',
-#         }
-#     },
-#     # 处理器
-#     'handlers': {
-#         # 在终端打印
-#         'console': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_true'],  # debug打开时在屏幕输出信息
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'console'
-#         },
-#         # 记录全部接口调用
-#         'default': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.RotatingFileHandler',  # 日志文件超过指定大小自动切换
-#             'filename': os.path.join(INFO_LOG_DIR, "info.log"),  # 日志文件保存路径
-#             'maxBytes': 1024 * 1024 * 5,  # 日志大小 50M
-#             'backupCount': 3,  # 最大保存日志文件数量
-#             'formatter': 'standard',
-#             'encoding': 'utf-8',
-#         },
-#         'sql': {
-#             'level': 'DEBUG',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(SQL_LOG_DIR, "sql.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'sql',
-#             'encoding': "utf-8"
-#         },
-#         # 专门定义一个收集特定信息的日志
-#         'collect': {
-#             'level': 'ERROR',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(COLLECT_LOG_DIR, "collect.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'normal',
-#             'encoding': "utf-8"
-#         },
-#         # 记录django.server警告以上的日志
-#         'server_handler': {
-#             'level': 'WARNING',
-#             'class': 'logging.handlers.TimedRotatingFileHandler',  # 指定时间间隔后保存到新文件
-#             'filename': os.path.join(SERVER_LOG_DIR, "warning.log"),
-#             'when': 'D',
-#             'backupCount': 30,
-#             'formatter': 'standard',
-#             'encoding': 'utf-8',
-#         },
-#         'request_handler': {
-#             'level': 'ERROR',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(REQUEST_LOG_DIR, "err.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'standard',
-#         },
-#         'celery_handler': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(CELERY_LOG_DIR, "err.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'standard',
-#         },
-#     },
-#     'loggers': {
-#         'django.server': {
-#             'handlers': ['console'] if ENV_NAME == 'local' else ['server_handler', 'default'],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#         'django.request': {
-#             'handlers': ['request_handler'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#     }
-# }
-
 logger.add(
     INFO_LOG_DIR + "/info.log", level="ERROR", format="{time} {level} {message}",
     colorize=True, rotation="5 MB"
@@ -288,12 +177,12 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 500242880
 
 
 # 配置发送邮箱验证邮件发件人的信息
-EMAIL_HOST = 'smtp.qiye.163.com'  # 发邮件主机
-EMAIL_PORT = 587  # 发邮件端口
-EMAIL_HOST_USER = 'leslie_chan@wochacha.com'  # 授权的邮箱
-EMAIL_HOST_PASSWORD = 'Nx6vhYCV3neVAWZC'  # 邮箱授权时获得的密码，非注册登录密码
-EMAIL_FROM = '时间管理大师<leslie_chan@wochacha.com>'  # 发件人抬头
-EMAIL_USE_TLS = True
+EMAIL_HOST = env.str("EMAIL_HOST")  # 发邮件主机
+EMAIL_PORT = env.str("EMAIL_PORT")  # 发邮件端口
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")  # 授权的邮箱
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")  # 邮箱授权时获得的密码，非注册登录密码
+EMAIL_FROM = env.str("EMAIL_FROM")  # 发件人抬头
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 # Nx6vhYCV3neVAWZC
 
 # fastdfs配置
