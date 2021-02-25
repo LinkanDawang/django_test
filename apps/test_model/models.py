@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import JSONField
 # from django.contrib.auth.models import User
 from django.contrib.contenttypes import fields
 from django.contrib.contenttypes.models import ContentType
+from simplepro.components import fields
 
 
 class TestModel(models.Model):
@@ -30,6 +31,7 @@ class Supplier(BaseModel):
 
 class UploadFile(BaseModel):
     file = models.FileField(upload_to="upload/", verbose_name="上传文件")
+    file_icon = fields.ImageField(drag=True, action="/images", max_length=128, verbose_name='图片上传')
     file_temp = models.CharField(max_length=1024, verbose_name="文件路径")
 
     class Meta:

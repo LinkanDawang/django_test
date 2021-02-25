@@ -1,5 +1,8 @@
 from django.contrib import admin
 from django.conf import settings
+from django.contrib import messages
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 
 from .models import Supplier, UploadFile
 
@@ -10,10 +13,31 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
+class ProxyResource(resources.ModelResource):
+    class Meta:
+        model = UploadFile
+
+
 @admin.register(UploadFile)
-class FileAdmin(admin.ModelAdmin):
+class FileAdmin(ImportExportActionModelAdmin):
     change_form_template = "upload.html"
-    list_display = ("id", "file", "create_time", "update_time")
+    resource_class = ProxyResource
+    list_display = ("id", "file", "file_temp", "file_icon", "create_time", "update_time")
+
+    actions = ['custom_button', ]
+    actions_on_top = False
+    actions_on_bottom = True
+
+    def custom_button(self, request, queryset):
+        messages.add_message(request, messages.SUCCESS, '测试按钮点击成功')
+
+    custom_button.enable = True
+    custom_button.short_description = "按钮"
+    # custom_button.icon = 'fas fa-audio-description'
+    # 指定element-ui的按钮类型，参考https://element.eleme.cn/#/zh-CN/component/button
+    custom_button.type = 'danger'
+    # 给按钮追加自定义的颜色
+    custom_button.style = 'color:black;'
 
     def set_extra_context(self, extra_context):
         oss_bucket_name = settings.AWS_STORAGE_BUCKET_NAME

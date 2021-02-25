@@ -11,15 +11,19 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 from loguru import logger
 
-# ENV Name
-ENV_NAME = 'local'
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')  # 应用文件夹
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')  # 日志文件夹
+env.read_env(str(BASE_DIR.path(".env")))
+
+# ENV Name
+ENV_NAME = env("ENV_NAME")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -35,9 +39,9 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
-    # 'simplepro',
+    'simplepro',
     'simpleui',
-    # 'import_export',
+    'import_export',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,7 +72,7 @@ MIDDLEWARE = [
     'apps.utils.middlewares.NewCustomMiddleware',
     # 'apps.utils.middlewares.UploadFileMiddleware',
     # # 顺序与INSTALLED_APPS注册的顺序一致，需要在SilkyMiddleware之前，否则会报错
-    # 'simplepro.middlewares.SimpleMiddleware',
+    'simplepro.middlewares.SimpleMiddleware',
     'silk.middleware.SilkyMiddleware',
 ]
 
@@ -306,12 +310,9 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
 MEDIA_URL = '/media/'
 
 # Storage
-# STATICFILES_STORAGE = "apps.core.storages.QiniuStorage"
-# DEFAULT_FILE_STORAGE = "apps.core.storages.QiniuStorage"
-AWS_ACCESS_KEY_ID = "ZR0Jrp7a16J0ur1iH6s4tPjI9ZP8Nd64eKgAz2Y6"
-AWS_SECRET_ACCESS_KEY = "0z09qqbA-j02tmOuZ_GcZdDqMJKrORGZR2HWCRk5"
-AWS_STORAGE_BUCKET_NAME = "djanotest"
-AWS_S3_ENDPOINT = "s3-cn-east-1.qiniucs.com"
+AWS_ACCESS_KEY_ID = env.str("ALI_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env.str("ALI_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env.str("ALIOSS_BUCKET_NAME")
+AWS_S3_ENDPOINT = env.str("ALI_OSS_ENDPOINT")
 AWS_S3_ENDPOINT_URL = f"http://{AWS_S3_ENDPOINT}"
-QINIU_URL = "http://qotks07z6.hd-bkt.clouddn.com"
 AWS_S3_ADDRESSING_STYLE = "virtual"
