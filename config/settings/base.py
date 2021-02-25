@@ -57,6 +57,7 @@ THIRD_APPS = [
     "rest_framework",
     # "rest_framework_filters",
     "rest_framework_tracking",
+    "storages"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_APPS
@@ -120,10 +121,23 @@ USE_L10N = True
 USE_TZ = True
 
 
+DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
+STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
+
+# SimplePro
+# SIMPLEUI_STATIC_OFFLINE = True
+
+# Media files
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+MEDIA_URL = '/media/'
+MEDIAFILES_LOCATION = 'media'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collect_dir')  # 收集静态文件
+STATICFILES_LOCATION = "static"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -186,22 +200,13 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 # Nx6vhYCV3neVAWZC
 
 # fastdfs配置
-FDFS_CLIENT_CONF = os.path.join(BASE_DIR, "config/dfs_client.conf")
-FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
-
-# DEFAULT_FILE_STORAGE = "apps.utils.dfs_storage.FastDfsStorage"
-
-# SimplePro
-# SIMPLEUI_STATIC_OFFLINE = True
-
-# Media files
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
-MEDIA_URL = '/media/'
+# FDFS_CLIENT_CONF = os.path.join(BASE_DIR, "config/dfs_client.conf")
+# FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
 
 # Storage
 AWS_ACCESS_KEY_ID = env.str("ALI_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env.str("ALI_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = env.str("ALIOSS_BUCKET_NAME")
 AWS_S3_ENDPOINT = env.str("ALI_OSS_ENDPOINT")
-AWS_S3_ENDPOINT_URL = f"http://{AWS_S3_ENDPOINT}"
+AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_ENDPOINT}"
 AWS_S3_ADDRESSING_STYLE = "virtual"

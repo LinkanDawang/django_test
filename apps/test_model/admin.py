@@ -63,3 +63,7 @@ class FileAdmin(ImportExportActionModelAdmin):
     def add_view(self, request, form_url='', extra_context=None):
         _extra_context = self.set_extra_context(extra_context)
         return super(FileAdmin, self).add_view(request, form_url, _extra_context)
+    
+    def save_model(self, request, obj, form, change):
+        obj.file = obj.file_temp
+        obj.save()
