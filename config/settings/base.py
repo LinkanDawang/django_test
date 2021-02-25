@@ -20,7 +20,7 @@ env = environ.Env()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')  # 应用文件夹
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')  # 日志文件夹
-env.read_env(str(BASE_DIR.path(".env")))
+env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # ENV Name
 ENV_NAME = env("ENV_NAME")
