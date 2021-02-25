@@ -223,7 +223,7 @@
             $('.el-dialog__wrapper').css("display", "none");
             if (uploadId != ""){
             console.log(_file_name);
-            client.abortMultipartUpload(name, uploadId);
+            client.abortMultipartUpload(_file_name, uploadId);
             }
         };
         function close_box () {
