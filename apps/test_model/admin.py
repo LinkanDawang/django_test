@@ -22,12 +22,23 @@ class ProxyResource(resources.ModelResource):
 class FileAdmin(ImportExportActionModelAdmin):
     change_form_template = "upload.html"
     resource_class = ProxyResource
-    list_display = ("id", "file", "file_temp", "file_icon", "create_time", "update_time")
+    list_display = (
+        "id", "file", "file_temp", # "file_icon",
+        "category",
+        "state",
+        "isgood",
+        "int_input",
+        "int_slide",
+        "school",
+        "point",
+        "create_time", "update_time")
+    list_editable = ("isgood",)
 
     actions = ['custom_button', ]
     actions_on_top = False
     actions_on_bottom = True
 
+    # ###自定义按钮
     def custom_button(self, request, queryset):
         messages.add_message(request, messages.SUCCESS, '测试按钮点击成功')
 
@@ -38,6 +49,7 @@ class FileAdmin(ImportExportActionModelAdmin):
     custom_button.type = 'danger'
     # 给按钮追加自定义的颜色
     custom_button.style = 'color:black;'
+    # ###自定义按钮
 
     def set_extra_context(self, extra_context):
         oss_bucket_name = settings.AWS_STORAGE_BUCKET_NAME
