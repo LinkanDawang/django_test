@@ -121,6 +121,6 @@ class UploadFile(BaseModel):
     )
 
     class Meta:
-        verbose_name = verbose_name_plural = "上传文件"
+        verbose_name = verbose_name_plural = "示例"
         managed = True
         db_table = "files"
