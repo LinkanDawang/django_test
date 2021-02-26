@@ -28,6 +28,10 @@ class Supplier(BaseModel):
         db_table = "supplier"
 
 
+def get_supplier_queryset():
+    return Supplier.objects.order_by('-pk')[:10]
+
+
 class UploadFile(BaseModel):
     TYPE_CHOICES = (
         (0, '全部'),
@@ -107,15 +111,13 @@ class UploadFile(BaseModel):
     # 评分类型
     point = fields.RateField(verbose_name='评分2', max_value=5, allow_half=True, show_score=False)
 
-    # 日期时间选择器
-
-    create_time = fields.DateTimeField(
-        options=options1, clearable=False,
-        auto_now_add=True, verbose_name='创建时间'
-    )
-    update_time = fields.DateTimeField(
-        options=options1, clearable=False, editable=False,
-        auto_now=True, verbose_name='创建时间'
+    str_input = fields.CharField(max_length=128, show_word_limit=True, verbose_name='输入框')
+    supplier = fields.ForeignKey(
+        Supplier, on_delete=models.SET_NULL, null=True, blank=True,
+        help_text='选择一个人', clearable=True, placeholder='看什么',
+        queryset=get_supplier_queryset,
+        # 这里这里可以传入function，但是返回的必须是个queryset，也可以传入queryset
+        limit=10,
     )
 
     class Meta:
