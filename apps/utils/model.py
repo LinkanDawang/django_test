@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 from simplepro.components import fields
 
@@ -33,11 +35,11 @@ class BaseModel(models.Model):
     STATE_CHOICES = ((0, "无效"), (1, "有效"))
     create_time = fields.DateTimeField(
         options=options1, clearable=False,
-        auto_now_add=True, verbose_name='创建时间'
+        default=datetime.now, verbose_name='创建时间'
     )
     update_time = fields.DateTimeField(
         options=options1, clearable=False, editable=False,
-        auto_now=True, verbose_name='创建时间'
+        default=datetime.now, verbose_name='创建时间'
     )
     state = fields.RadioField(choices=STATE_CHOICES, verbose_name='单选框', default=0, help_text='只能选一个')
     # create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')

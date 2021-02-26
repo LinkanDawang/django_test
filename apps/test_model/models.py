@@ -109,7 +109,7 @@ class UploadFile(BaseModel):
     school = fields.IntegerField(verbose_name='学校', choices=school_choices, default=0)
 
     # 评分类型
-    point = fields.RateField(verbose_name='评分2', max_value=5, allow_half=True, show_score=False)
+    point = fields.RateField(max_value=5, allow_half=True, show_score=True, verbose_name='评分')
 
     str_input = fields.CharField(max_length=128, show_word_limit=True, verbose_name='输入框')
     supplier = fields.ForeignKey(
