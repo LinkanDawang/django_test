@@ -216,3 +216,7 @@ AWS_S3_ADDRESSING_STYLE = "virtual"
 # https://bucket_name.xxx.oss.com?AWSAccessKeyId=LTAI4G2mjcChkWTDqSXRBsWd&Signature=sUajun7wqPRjAseqTH%2BVEhHaQ8U%3D&Expires=1614321623?_=2.1
 # FIXME 路径后 [?_=2.1 | ?_=3.3 | ?_=2021.3] 等此类后缀会使得模板渲染时无法找到存储里oss服务里静态文件
 AWS_QUERYSTRING_AUTH = False
+
+# RAM用户，用于oss sts临时访问的策略
+ALI_OSS_RAM_ACCESS_KEY = env.str("ALI_OSS_RAM_ACCESS_KEY")
+ALI_OSS_RAM_SECRET_KEY = env.str("ALI_OSS_RAM_SECRET_KEY")

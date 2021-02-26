@@ -232,8 +232,8 @@
         };
         (function ($) {
             $("#id_file").change(function eventStart(e) {
-                  $(".v-modal").css("display", "block");
-                  $(".el-dialog__wrapper").css("display", "block");
+                $(".v-modal").css("display", "block");
+                $(".el-dialog__wrapper").css("display", "block");
                 if (e.target.files.length === 0) {
                     console.log("没有选择文件！");
                     return;

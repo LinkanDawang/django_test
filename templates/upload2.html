@@ -1,974 +1,131 @@
-<html lang="zh-hans" >
+<!DOCTYPE html>
+<html>
 <head>
-<title>Add 文件上传 | Django site admin</title>
-<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/css/base.css" />
-
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/css/vendor.css?v=1.0.8" />
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/css/icons/style.css?v=1.0.8" />
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/css/themes/default/base.css?v=1.0.8" class="base-stylesheet" />
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/css/themes/default/select2.theme.css?v=1.0.8" class="select2-stylesheet" />
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/css/themes/default/jquery-ui.theme.css?v=1.0.8" class="jquery-ui-stylesheet" />
-
-<link rel="stylesheet" type="text/css" href="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/css/forms.css">
-
-
-{% load static %}
-
-
-<script type="text/javascript" charset="utf-8">
-    var DATE_FORMAT = "%Y/%m/%d";
-    var TIME_FORMAT = "%H:%M";
-    var DATETIME_FORMAT = "%Y/%m/%d %H:%M";
-</script>
-<script type="text/javascript" src="{% static 'js/jsi18n_2.js' %}"></script>
-<script src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/jet/js/build/bundle.min.js?v=1.0.8"></script>
-
-<script type="text/javascript" src="{% static 'js/jsi18n.js' %}"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/vendor/jquery/jquery.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/jquery.init.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/core.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/inlines.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/admin/RelatedObjectLookups.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/actions.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/urlify.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/prepopulate.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/vendor/xregexp/xregexp.js"></script>
-
-    <!-- layer依赖jquery -->
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/js/qrcode.min.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/js/jquery-2.0.0.min.js"></script>
-<script type="text/javascript" src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/js/layer.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/es6-promise/4.2.8/es6-promise.min.js"></script>
-<!-- oss库依赖promisejs -->
-<script type="text/javascript" src="https://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
-<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    .demo {
-        padding: 2em 0;
-        background: linear-gradient(to right, #2c3b4e, #4a688a, #2c3b4e);
-    }
-
-    .progress {
-        height: 25px;
-        background: #262626;
-        padding: 5px;
-        overflow: visible;
-        border-radius: 20px;
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #7992a8;
-        margin-top: 50px;
-    }
-
-    .progress .progress-bar {
-        border-radius: 20px;
-        position: relative;
-        animation: animate-positive 2s;
-    }
-
-    .progress .progress-value {
-        display: block;
-        padding: 3px 7px;
-        font-size: 13px;
-        color: #fff;
-        border-radius: 4px;
-        background: #191919;
-        border: 1px solid #000;
-        position: absolute;
-        top: -40px;
-        right: -10px;
-    }
-
-    .progress .progress-value:after {
-        content: "";
-        border-top: 10px solid #191919;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        position: absolute;
-        bottom: -6px;
-        left: 26%;
-    }
-
-    .progress-bar.active {
-        animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
-    }
-
-    @-webkit-keyframes animate-positive {
-        0% {
-            width: 0;
-        }
-    }
-
-    @keyframes animate-positive {
-        0% {
-            width: 0;
-        }
-    }
-    </style>
-
-<meta name="robots" content="NONE,NOARCHIVE" />
+    <title></title>
+    <script type="text/javascript" src="https://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
 </head>
+<body>
 
-
-<body class="menu-pinned  app-file_upload model-uploadlog change-form"
-  data-admin-utc-offset="28800">
-
-<!-- Container -->
-<div id="container">
-
-
-    <!-- Header -->
-    <div id="header">
-        <div id="branding">
-            <span id="branding-menu" class="sidebar-header-menu-icon icon-menu sidebar-toggle"></span>
-            <span id="branding-pin" class="sidebar-link-icon icon-pin sidebar-pin"></span>
-
-<h1 id="site-name"><a href="/">Django administration</a></h1>
-
-        </div>
-
-
-        <div id="user-tools">
-
-                Welcome,
-                <strong>leslie</strong>.
-
-
-
-                    <a href="/">View site</a> /
-
-
-
-
-
-
-                <a href="/password_change/">Change password</a> /
-
-                <a href="/logout/">Log out</a>
-
-        </div>
-
-
-    </div>
-    <!-- END Header -->
-
-
-<div class="breadcrumbs">
-<a href="/">Home</a>
-&rsaquo; <a href="/file_upload/">File_Upload</a>
-&rsaquo; <a href="/file_upload/uploadlog/">文件上传</a>
-&rsaquo; Add 文件上传
-</div>
-
-
-
-
-
-
-
-    <!-- Content -->
-    <div id="content" class="colM">
-
-        <h1>Add 文件上传</h1>
-        <div id="content-main">
-
-
-
-<form enctype="multipart/form-data" action="" method="post" id="uploadlog_form" novalidate><input type="hidden" name="csrfmiddlewaretoken" value="AePu5u845q1xIKlOurr0aSq8g7yPijr0zUOeq1Loj2UqcmVHIwQdLPg0j72ubo8b">
 <div>
-
-
-
-
-
-
-
-
-<fieldset class="module aligned ">
-
-
-
-        <div class="form-row field-state">
-
-
-                <div>
-
-
-                        <label class="required" for="id_state">状态:</label>
-
-                            <select name="state" id="id_state">
-  <option value="1" selected>Effective</option>
-
-  <option value="0">Archive</option>
-
-</select>
-
-
-
-                        <p class="help">状态</p>
-
-                </div>
-
-        </div>
-
-        <div class="form-row field-file">
-
-
-                <div>
-
-
-                        <label for="id_file">上传文件:</label>
-
-                            <input type="file" name="file" id="id_file">
-
-
-
-                </div>
-
-        </div>
-
-        <div class="form-row field-file_temp">
-
-
-                <div>
-
-
-                        <label for="id_file_temp">文件地址:</label>
-
-                            <input type="text" name="file_temp" class="vTextField" maxlength="512" id="id_file_temp">
-
-
-
-                </div>
-
-        </div>
-
-        <div class="demo">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-6">
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-info progress-bar-striped active" id="mt-progress-length"
-                             style="width: 0%;">
-                                <div class="progress-value" id="mt-progress-value">0%</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-</fieldset>
-
-
-
-
-
-
-
-
-
-<div class="js-inline-admin-formset inline-group" id="file_upload-datapermission-content_type-object_id-group"
-     data-inline-type="tabular"
-     data-inline-formset="{&quot;name&quot;: &quot;#file_upload-datapermission-content_type-object_id&quot;, &quot;options&quot;: {&quot;prefix&quot;: &quot;file_upload-datapermission-content_type-object_id&quot;, &quot;addText&quot;: &quot;Add another \u6570\u636e\u6743\u9650&quot;, &quot;deleteText&quot;: &quot;Remove&quot;}}">
-  <div class="tabular inline-related last-related">
-<input type="hidden" name="file_upload-datapermission-content_type-object_id-TOTAL_FORMS" value="1" id="id_file_upload-datapermission-content_type-object_id-TOTAL_FORMS"><input type="hidden" name="file_upload-datapermission-content_type-object_id-INITIAL_FORMS" value="0" id="id_file_upload-datapermission-content_type-object_id-INITIAL_FORMS"><input type="hidden" name="file_upload-datapermission-content_type-object_id-MIN_NUM_FORMS" value="0" id="id_file_upload-datapermission-content_type-object_id-MIN_NUM_FORMS"><input type="hidden" name="file_upload-datapermission-content_type-object_id-MAX_NUM_FORMS" value="1000" id="id_file_upload-datapermission-content_type-object_id-MAX_NUM_FORMS">
-<fieldset class="module ">
-   <h2>数据权限</h2>
-
-   <table>
-     <thead><tr>
-       <th class="original"></th>
-
-
-         <th class="column-state required">状态
-         &nbsp;<img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-unknown.svg" class="help help-tooltip" width="10" height="10" alt="(状态)" title="状态">
-         </th>
-
-
-
-         <th class="column-user">User
-
-         </th>
-
-
-     <th>Delete?</th>
-     </tr></thead>
-
-     <tbody>
-
-
-        <tr class="form-row row1 "
-             id="file_upload-datapermission-content_type-object_id-0">
-        <td class="original">
-
-          <input type="hidden" name="file_upload-datapermission-content_type-object_id-0-id" id="id_file_upload-datapermission-content_type-object_id-0-id">
-
-
-        </td>
-
-
-
-
-              <td class="field-state">
-
-
-                  <select name="file_upload-datapermission-content_type-object_id-0-state" id="id_file_upload-datapermission-content_type-object_id-0-state">
-  <option value="1" selected>Effective</option>
-
-  <option value="0">Archive</option>
-
-</select>
-
-              </td>
-
-
-
-
-
-              <td class="field-user">
-
-
-                  <div class="related-widget-wrapper">
-    <select name="file_upload-datapermission-content_type-object_id-0-user" id="id_file_upload-datapermission-content_type-object_id-0-user">
-  <option value="" selected>---------</option>
-
-  <option value="163596eb-eb3d-47b6-b6ba-359346d6bf56">leslie</option>
-
-  <option value="92f655e6-baa1-4449-91c0-5712241a5bb2">upload2</option>
-
-  <option value="442a2734-cc3b-4819-adbe-0ce92b4918df">uploader-001</option>
-
-  <option value="34cfe7e6-47c2-4322-8e7b-3795853a7679">wcc</option>
-
-  <option value="09bbe06b-73d0-4ce8-a63d-1552e606d7c4">分包商1</option>
-
-  <option value="28d2071a-72ce-4fa8-98fe-9baacce98c11">设计院1</option>
-
-</select>
-
-        <a class="related-widget-wrapper-link change-related" id="change_id_file_upload-datapermission-content_type-object_id-0-user"
-            data-href-template="/users/user/__fk__/change/?_to_field=id&amp;_popup=1"
-            title="Change selected user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_file_upload-datapermission-content_type-object_id-0-user"
-            href="/users/user/add/?_to_field=id&amp;_popup=1"
-            title="Add another user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-addlink.svg" alt="Add"></a><a class="related-widget-wrapper-link delete-related" id="delete_id_file_upload-datapermission-content_type-object_id-0-user"
-            data-href-template="/users/user/__fk__/delete/?_to_field=id&amp;_popup=1"
-            title="Delete selected user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-deletelink.svg" alt="Delete"></a>
-
+  <input type="file" id='fileInput' multiple='true'>
+  <button id="uploadBtn" onclick="upload()">Upload</button>
+  <button id="stopBtn" onclick="stop()">Stop</button>
+  <button id="resumeBtn" onclick="resume()">resume</button>
+  <h2 id='status'></h2>
 </div>
 
-              </td>
+<script type="text/javascript">
+    let credentials = null; // STS凭证
+    let ossClient = null; // oss客户端实例
+    const fileInput = document.getElementById('fileInput'); // 文件选择器
+    const status = document.getElementById('status'); // 状态显示元素
+    const bucket = 'lesliedfs'; // bucket名称
+    const region = 'oss-cn-shanghai'; // oss服务区域名称
+    const partSize = 1024 * 1024; // 每个分片大小(byte)
+    const parallel = 3; // 同时上传的分片数
+    const checkpoints = {}; // 所有分片上传文件的检查点
 
-
-
-
-
-          <td class="delete"></td>
-
-        </tr>
-
-
-        <tr class="form-row row2  empty-form"
-             id="file_upload-datapermission-content_type-object_id-empty">
-        <td class="original">
-
-          <input type="hidden" name="file_upload-datapermission-content_type-object_id-__prefix__-id" id="id_file_upload-datapermission-content_type-object_id-__prefix__-id">
-
-
-        </td>
-
-
-
-
-              <td class="field-state">
-
-
-                  <select name="file_upload-datapermission-content_type-object_id-__prefix__-state" id="id_file_upload-datapermission-content_type-object_id-__prefix__-state">
-  <option value="1" selected>Effective</option>
-
-  <option value="0">Archive</option>
-
-</select>
-
-              </td>
-
-
-
-
-
-              <td class="field-user">
-
-
-                  <div class="related-widget-wrapper">
-    <select name="file_upload-datapermission-content_type-object_id-__prefix__-user" id="id_file_upload-datapermission-content_type-object_id-__prefix__-user">
-  <option value="" selected>---------</option>
-
-  <option value="163596eb-eb3d-47b6-b6ba-359346d6bf56">leslie</option>
-
-  <option value="92f655e6-baa1-4449-91c0-5712241a5bb2">upload2</option>
-
-  <option value="442a2734-cc3b-4819-adbe-0ce92b4918df">uploader-001</option>
-
-  <option value="34cfe7e6-47c2-4322-8e7b-3795853a7679">wcc</option>
-
-  <option value="09bbe06b-73d0-4ce8-a63d-1552e606d7c4">分包商1</option>
-
-  <option value="28d2071a-72ce-4fa8-98fe-9baacce98c11">设计院1</option>
-
-</select>
-
-        <a class="related-widget-wrapper-link change-related" id="change_id_file_upload-datapermission-content_type-object_id-__prefix__-user"
-            data-href-template="/users/user/__fk__/change/?_to_field=id&amp;_popup=1"
-            title="Change selected user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-changelink.svg" alt="Change"></a><a class="related-widget-wrapper-link add-related" id="add_id_file_upload-datapermission-content_type-object_id-__prefix__-user"
-            href="/users/user/add/?_to_field=id&amp;_popup=1"
-            title="Add another user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-addlink.svg" alt="Add"></a><a class="related-widget-wrapper-link delete-related" id="delete_id_file_upload-datapermission-content_type-object_id-__prefix__-user"
-            data-href-template="/users/user/__fk__/delete/?_to_field=id&amp;_popup=1"
-            title="Delete selected user"><img src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/img/icon-deletelink.svg" alt="Delete"></a>
-
-</div>
-
-              </td>
-
-
-
-
-
-          <td class="delete"></td>
-
-        </tr>
-
-     </tbody>
-   </table>
-</fieldset>
-  </div>
-</div>
-
-
-
-
-
-
-
-<div class="submit-row">
-
-<input type="submit" value="Save" class="default" name="_save">
-
-
-<input type="submit" value="Save and add another" name="_addanother">
-<input type="submit" value="Save and continue editing" name="_continue">
-
-
-</div>
-
-
-
-    <!-- 说明： id_file 控件是一个FileField， -->
-    <!-- 说明： id_extra_file_url 控件是一个TextField， -->
-    <script type="text/javascript">
-        // 初始化oss的client！
-        var _percent = 0;
-        const client = new OSS.Wrapper({
-            region: 'oss-cn-shanghai',
-            //云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用STS方式来进行API访问
-            accessKeyId: 'LTAI4G4qpVdRyjHNvaECguwi', // 【必要】子账号的keyId
-            accessKeySecret: '5A5UKLtCVTydWu8z1hi0G5grHQLstN', // 【必要】子账号的KeySecret
-            endpoint: 'oss-cn-shanghai.aliyuncs.com',
-            //  // 【非必要】建议开通sts，这样更安全。
-            bucket: 'gc-scm-alpha' // 【必要】bucket 名称
+    // 获取STS Token
+    function getCredential() {
+      return fetch('http://127.0.0.1:8000/api/main/test/')
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          credentials = res;
+        })
+        .catch(err => {
+          console.error(err);
         });
-        $('#id_file_temp').attr("readonly",true);
-        (function ($) {
-            $("#id_file").change(function eventStart(e) {
-                // 恢复进度条的状态
-                //背景成绿色
-                $(".progress").css("background", "#262626");
-                //归零 隐藏
-                $("#mt-progress-length").css({"width": "0%", "opacity": "1"});
-                $("#mt-progress-value").html(0);
+    }
 
+    // 创建OSS Client
+    async function initOSSClient() {
+      //const { AccessKeyId, AccessKeySecret, SecurityToken } = credentials;
+      AccessKeyId = credentials.AccessKeyId;
+      AccessKeySecret = credentials.AccessKeySecret;
+      SecurityToken = credentials.SecurityToken;
+      ossClient = new OSS.Wrapper({
+        accessKeyId: AccessKeyId,
+        accessKeySecret: AccessKeySecret,
+        stsToken: SecurityToken,
+        bucket: 'lesliedfs', // 【必要】bucket 名称
+        endpoint: 'oss-cn-shanghai.aliyuncs.com',
+        region: 'cn-shanghai'
+      });
+    }
 
-                if (e.target.files.length === 0) {
-                    console.log("没有选择文件！");
-                    return;
-                }
-                let fileName = e.target.files[0].name;
-                let tmp = fileName;
+    async function upload() {
+      status.innerText = 'Uploading';
+      // 获取STS Token
+      await getCredential();
+      const { files } = fileInput;
+      const fileList = Array.from(files);
+      const uploadTasks = fileList.forEach(file => {
+        // 如果文件大学小于分片大小，使用普通上传，否则使用分片上传
+        // if (file.size < partSize) {
+        //   commonUpload(file);
+        // } else {
+        //   multipartUpload(file);
+        // }
+        multipartUpload(file)
+      });
+    }
 
-                let extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-                if (extension) {
-                    // 给文件名添加扩展信息。
-                    let timestamp = (new Date()).valueOf();
-                    tmp = fileName.substring(0, fileName.lastIndexOf('.')) + "_" + timestamp + "." + extension;
-                }
-                // 添加存储路径，请根据实际情况填写。
-                _tmp = "media/upload/" + tmp;
-                tmp = "upload/" + tmp;
+    // 分片上传
+    async function multipartUpload(file) {
+      if (!ossClient) {
+        await initOSSClient();
+      }
+      const fileName = file.name;
+      ossClient.multipartUpload(fileName, file, {
+        parallel,
+        partSize,
+        progress: onMultipartUploadProgress
+      }).then(function (result) {
+        // 生成文件下载地址
+        console.log(result);
+        const url = `http://${bucket}.${region}.aliyuncs.com/${fileName}`;
+        console.log(`Multipart upload ${file.name} succeeded, url === `, url)
+      }).catch(function (e) {
+        console.log(`Multipart upload ${file.name} failed === `, e);
+      });
+    }
 
-                // 使用layer来做提示框
-                //let index = layer.load(1, {shade: false}); //0代表加载的风格，支持0-2
-                client.multipartUpload(_tmp, e.target.files[0], {
-                    parallel: 2,
-                    // 上传进度
-                    progress: function* (percent, cpt) {
-                        var _percent = percent * 100;
-                        //背景恢复
-                        $(".progress").css("background", "#262626");
-                        //归零 隐藏
-                        $("#mt-progress-length").css({"width": "0%", "opacity": "1"});
-                        $("#mt-progress-value").html(0);
-                        //$(".show_result").html(_percent + "%");
-                        var percentStr = String(_percent);
-                        console.log(percentStr);
-                        if (percentStr == "100") {
-                            percentStr = "100.0";
-                        }
-                        percentStr = percentStr.substring(0, percentStr.indexOf("."));
-                        $("#mt-progress-value").html(percentStr);
-                        $("#mt-progress-length").css("width", percentStr + "%");
+    // 暂停上传
+    function stop() {
+      status.innerText = 'Stopping';
+      if (ossClient) ossClient.cancel();
+    }
 
-                        if (percentStr == "100") {
-                            setTimeout(function () {
-                                //背景成绿色
-                                $(".progress").css("background", "#15AD66");
-                                //归零 隐藏
-                                $("#mt-progress-length").css({"width": "0%", "opacity": "0"});
-                            }, 500);
-                        }
-                    }
-                }).then(function (result) {
-                        //
-                        // console.log(result);
-                        // 清除input
-                        let $input = $("#id_file_temp");
-                        $input.replaceWith($input.val('').clone(true));
+    // 续传
+    function resume() {
+      status.innerText = 'Resuming';
+      if (ossClient) resumeMultipartUpload();
+    }
 
-                        // 这儿指定了一个CDN加速域名，避免直接使用OSS域名，这儿请填写实际的cdn域名。
-                        let finalURL = 'http://wcc-app.oss-cn-shanghai.aliyuncs.com/' + result.name;
-                        //
-                        $('#id_file_temp').val(tmp);
-                        $('#id_file').remove();
-                        //$('#id_file').val(finalURL);
-                        //console.log(finalURL);
-
-                        //layer.close(index);
-                    }).catch(function (e) {
-                    alert(e);
-                    //layer.close(index);
-                    //layer.msg('上传出错，请联系管理员！');
-
-                });
-                //multipartUpload(client, tmp, e.target.files[0])
-                console.log("=========");
-            });
-        })(django.jQuery);
-
-        const progress = (p, _checkpoint) => {
-          console.log(p); // Object的上传进度。
-          console.log(_checkpoint); // 分片上传的断点信息。
-        };
-
-    </script>
+    // 分片上传进度改变回调
+    async function onMultipartUploadProgress(progress, checkpoint) {
+      console.log("111111");
+      console.log(`${checkpoint.file.name} 上传进度 ${progress}`);
+      checkpoints[checkpoint.uploadId] = checkpoint;
+      // 判断STS Token是否将要过期，过期则重新获取
+      const { Expiration } = credentials;
+      const timegap = 1;
+      if (Expiration && moment(Expiration).subtract(timegap, 'minute').isBefore(moment())) {
+        console.log(`STS token will expire in ${timegap} minutes，uploading will pause and resume after getting new STS token`);
+        if (ossClient) {
+          ossClient.cancel();
+        }
+        await getCredential();
+        await resumeMultipartUpload();
+      }
+    }
 
 
 
-
-
-<script type="text/javascript"
-        id="django-admin-prepopulated-fields-constants"
-        src="https://gc-scm-alpha.oss-cn-shanghai.aliyuncs.com/static/admin/js/prepopulate_init.js"
-        data-prepopulated-fields="[]">
 </script>
-
-
-</div>
-</form></div>
-
-
-        <br class="clear" />
-    </div>
-    <!-- END Content -->
-
-    <div id="footer"></div>
-
-
-
-
-
-
-
-
-
-        <div class="related-popup-container scrollable">
-            <a href="#" class="related-popup-back">
-                <span class="related-popup-back-icon icon-arrow-left"></span>
-                <span class="related-popup-back-label">back</span>
-            </a>
-            <span class="icon-refresh loading-indicator"></span>
-        </div>
-
-        <div class="sidebar-header-wrapper sidebar-dependent">
-            <div class="sidebar-header sidebar-dependent">
-                <a href="#" class="sidebar-header-menu sidebar-toggle">
-                    <span class="sidebar-header-menu-icon icon-menu"></span>
-                    <span class="sidebar-header-menu-icon icon-cross"></span>
-                </a>
-            </div>
-        </div>
-        <div class="sidebar sidebar-dependent">
-            <div class="sidebar-wrapper scrollable">
-                <div class="sidebar-section">
-
-                        <a href="/" class="sidebar-link icon">
-                            <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-data"></span>
-                                Home
-                            </span>
-                        </a>
-
-
-                        <a href="/" class="sidebar-link icon">
-                            <span class="sidebar-link-label">
-                                <span class="sidebar-link-icon icon-open-external"></span>
-                                View site
-                            </span>
-                        </a>
-
-
-
-
-                </div>
-
-
-
-
-                        <form action="/jet/toggle_application_pin/" method="POST" id="toggle-application-pin-form">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="AePu5u845q1xIKlOurr0aSq8g7yPijr0zUOeq1Loj2UqcmVHIwQdLPg0j72ubo8b">
-                            <input type="hidden" name="app_label">
-                        </form>
-
-                        <div class="sidebar-section">
-                            <div class="sidebar-title">
-                                <span class="sidebar-right">
-                                    <a href="#" class="sidebar-right-edit edit-apps-list"><span class="icon-settings"></span></a>
-                                </span>
-                                Applications
-                            </div>
-
-                            <div class="apps-list-pinned">
-
-
-
-
-
-
-
-
-
-                            </div>
-                            <a href="#" class="sidebar-center-link apps-hide">
-                                <span class="apps-hide-label apps-visible">Hide applications</span>
-                                <span class="apps-hide-label apps-hidden">Show hidden</span>
-                            </a>
-                            <div class="apps-list">
-
-
-                                        <a href="/authtoken/" class="sidebar-link popup-section-link app-item" data-app-label="authtoken" data-popup-section-class="sidebar-popup-section-authtoken" data-order="1">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
-
-                                            <span class="sidebar-link-label">
-                                                Auth Token
-                                            </span>
-                                        </a>
-
-
-
-                                        <a href="/auth/" class="sidebar-link popup-section-link app-item" data-app-label="auth" data-popup-section-class="sidebar-popup-section-auth" data-order="2">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
-
-                                            <span class="sidebar-link-label">
-                                                Authentication and Authorization
-                                            </span>
-                                        </a>
-
-
-
-                                        <a href="/file_upload/" class="sidebar-link popup-section-link app-item" data-app-label="file_upload" data-popup-section-class="sidebar-popup-section-file_upload" data-order="3">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
-
-                                            <span class="sidebar-link-label">
-                                                File_Upload
-                                            </span>
-                                        </a>
-
-
-
-                                        <a href="/users/" class="sidebar-link popup-section-link app-item" data-app-label="users" data-popup-section-class="sidebar-popup-section-users" data-order="4">
-                                            <span class="sidebar-left collapsible">
-                                                <span class="sidebar-left-pin icon-star pin-toggle"></span>
-                                                <span class="sidebar-left-unpin icon-cross pin-toggle"></span>
-                                            </span>
-
-                                            <span class="sidebar-right">
-                                                <span class="sidebar-right-arrow icon-arrow-right"></span>
-                                            </span>
-
-                                            <span class="sidebar-link-label">
-                                                Users
-                                            </span>
-                                        </a>
-
-
-                            </div>
-                        </div>
-
-
-                    <div class="sidebar-section last">
-                        <div class="dialog-confirm" id="bookmarks-add-dialog" title="Add bookmark">
-                            <form action="/jet/add_bookmark/" method="POST" id="bookmarks-add-form">
-                                <input type="hidden" name="csrfmiddlewaretoken" value="AePu5u845q1xIKlOurr0aSq8g7yPijr0zUOeq1Loj2UqcmVHIwQdLPg0j72ubo8b">
-                                <p>Title:</p>
-                                <input type="text" name="title" class="fill_width">
-                                <p>URL:</p>
-                                <input type="text" name="url" class="fill_width">
-                            </form>
-                        </div>
-                        <form action="/jet/remove_bookmark/" method="POST" id="bookmarks-remove-form">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="AePu5u845q1xIKlOurr0aSq8g7yPijr0zUOeq1Loj2UqcmVHIwQdLPg0j72ubo8b">
-                            <input type="hidden" name="id">
-                        </form>
-                        <div class="dialog-confirm" id="bookmarks-remove-dialog" title="Delete bookmark">
-                            <p>Are you sure want to delete this bookmark?</p>
-                        </div>
-
-                        <div class="sidebar-title">
-                            <span class="sidebar-right">
-                                <a href="#" class="sidebar-right-plus bookmarks-add" title="Add bookmark" data-title="Add 文件上传"><span class="icon-add"></span></a>
-                            </span>
-                            bookmarks
-                        </div>
-
-                        <div class="bookmarks-list">
-
-
-                            <a class="sidebar-link bookmark-item clone">
-                                <span class="sidebar-right collapsible">
-                                    <span class="sidebar-right-remove bookmarks-remove">Remove</span>
-                                </span>
-                                <span class="sidebar-link-label"></span>
-                            </a>
-                        </div>
-                    </div>
-
-            </div>
-
-
-                <div class="sidebar-popup-container">
-                    <div class="sidebar-popup scrollable">
-                        <a href="#" class="sidebar-close sidebar-back">
-                            <span class="sidebar-close-icon icon-arrow-left"></span>
-                        </a>
-
-
-                                <div class="sidebar-popup-section sidebar-popup-section-authtoken">
-                                    <div class="sidebar-popup-title">
-                                        Auth Token
-                                    </div>
-
-                                    <input class="sidebar-popup-search" placeholder="Search...">
-
-                                    <ul class="sidebar-popup-list">
-
-                                            <li class="sidebar-popup-list-item app-authtoken">
-                                                <a href="/authtoken/" class="sidebar-popup-list-item-link">Application page</a>
-                                            </li>
-
-
-
-
-                                                <li class="sidebar-popup-list-item model-tokenproxy">
-                                                    <a href="/authtoken/tokenproxy/" class="sidebar-popup-list-item-link">
-                                                        Tokens
-                                                    </a>
-                                                </li>
-
-
-                                    </ul>
-                                </div>
-
-
-
-                                <div class="sidebar-popup-section sidebar-popup-section-auth">
-                                    <div class="sidebar-popup-title">
-                                        Authentication and Authorization
-                                    </div>
-
-                                    <input class="sidebar-popup-search" placeholder="Search...">
-
-                                    <ul class="sidebar-popup-list">
-
-                                            <li class="sidebar-popup-list-item app-auth">
-                                                <a href="/auth/" class="sidebar-popup-list-item-link">Application page</a>
-                                            </li>
-
-
-
-
-                                                <li class="sidebar-popup-list-item model-group">
-                                                    <a href="/auth/group/" class="sidebar-popup-list-item-link">
-                                                        Groups
-                                                    </a>
-                                                </li>
-
-
-                                    </ul>
-                                </div>
-
-
-
-                                <div class="sidebar-popup-section sidebar-popup-section-file_upload">
-                                    <div class="sidebar-popup-title">
-                                        File_Upload
-                                    </div>
-
-                                    <input class="sidebar-popup-search" placeholder="Search...">
-
-                                    <ul class="sidebar-popup-list">
-
-                                            <li class="sidebar-popup-list-item app-file_upload">
-                                                <a href="/file_upload/" class="sidebar-popup-list-item-link">Application page</a>
-                                            </li>
-
-
-
-
-                                                <li class="sidebar-popup-list-item model-profession">
-                                                    <a href="/file_upload/profession/" class="sidebar-popup-list-item-link">
-                                                        专业代码表
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-subcontract">
-                                                    <a href="/file_upload/subcontract/" class="sidebar-popup-list-item-link">
-                                                        分包表
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-filecompare">
-                                                    <a href="/file_upload/filecompare/" class="sidebar-popup-list-item-link">
-                                                        图纸差异比较
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-subcontractfilehistory">
-                                                    <a href="/file_upload/subcontractfilehistory/" class="sidebar-popup-list-item-link">
-                                                        工程包和图纸关系
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-building">
-                                                    <a href="/file_upload/building/" class="sidebar-popup-list-item-link">
-                                                        幢表
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-uploadlog current">
-                                                    <a href="/file_upload/uploadlog/" class="sidebar-popup-list-item-link">
-                                                        文件上传
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-filehistory">
-                                                    <a href="/file_upload/filehistory/" class="sidebar-popup-list-item-link">
-                                                        文件历史表
-                                                    </a>
-                                                </li>
-
-
-
-                                                <li class="sidebar-popup-list-item model-file">
-                                                    <a href="/file_upload/file/" class="sidebar-popup-list-item-link">
-                                                        最新文件表
-                                                    </a>
-                                                </li>
-
-
-                                    </ul>
-                                </div>
-
-
-
-                                <div class="sidebar-popup-section sidebar-popup-section-users">
-                                    <div class="sidebar-popup-title">
-                                        Users
-                                    </div>
-
-                                    <input class="sidebar-popup-search" placeholder="Search...">
-
-                                    <ul class="sidebar-popup-list">
-
-                                            <li class="sidebar-popup-list-item app-users">
-                                                <a href="/users/" class="sidebar-popup-list-item-link">Application page</a>
-                                            </li>
-
-
-
-
-                                                <li class="sidebar-popup-list-item model-user">
-                                                    <a href="/users/user/" class="sidebar-popup-list-item-link">
-                                                        Users
-                                                    </a>
-                                                </li>
-
-
-                                    </ul>
-                                </div>
-
-
-                    </div>
-                </div>
-
-        </div>
-
-
-
-
-</div>
-<!-- END Container -->
 
 </body>
 </html>
