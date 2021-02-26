@@ -12,5 +12,8 @@ class StaticStorage(S3Boto3Storage):
         :param name:
         :return:
         """
-        name = super(StaticStorage, self)._normalize_name(name)
-        return name
+        # FIXME simplePro中admin的模板里有很多填充静态资源的路径为绝对路径
+        # FIXME 例: <link rel="stylesheet" href="{% static '/admin/simpleui-x/css/login.css' %}?_=2.1">
+        # FIXME 问题：会导致storages.utils.safe_join抛出异常
+        name = name[1:] if name.startswith("/") else name
+        return super(StaticStorage, self)._normalize_name(name)

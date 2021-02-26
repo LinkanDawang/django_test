@@ -121,8 +121,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-# DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
-# STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
+DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
+STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
 
 # SimplePro
 # SIMPLEUI_STATIC_OFFLINE = True
@@ -204,9 +204,15 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 # FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
 
 # Storage
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
 AWS_ACCESS_KEY_ID = env.str("ALI_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = env.str("ALI_SECRET_ACCESS_KEY")
 AWS_STORAGE_BUCKET_NAME = env.str("ALIOSS_BUCKET_NAME")
 AWS_S3_ENDPOINT = env.str("ALI_OSS_ENDPOINT")
 AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_ENDPOINT}"
 AWS_S3_ADDRESSING_STYLE = "virtual"
+# FIXME 使用SimplePro模块时，AWS_QUERYSTRING_AUTH=True会导致模板渲染时请求部分静态文件失败
+# FIXME <link rel="stylesheet" href="{% static '/admin/simpleui-x/css/login.css' %}?_=2.1">
+# https://bucket_name.xxx.oss.com?AWSAccessKeyId=LTAI4G2mjcChkWTDqSXRBsWd&Signature=sUajun7wqPRjAseqTH%2BVEhHaQ8U%3D&Expires=1614321623?_=2.1
+# FIXME 路径后 [?_=2.1 | ?_=3.3 | ?_=2021.3] 等此类后缀会使得模板渲染时无法找到存储里oss服务里静态文件
+AWS_QUERYSTRING_AUTH = False
