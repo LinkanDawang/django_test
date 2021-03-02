@@ -39,7 +39,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
-    'simplepro',
+    'simplecus',
     'simpleui',
     'import_export',
     'django.contrib.admin',
@@ -73,7 +73,7 @@ MIDDLEWARE = [
     'apps.utils.middlewares.NewCustomMiddleware',
     # 'apps.utils.middlewares.UploadFileMiddleware',
     # # 顺序与INSTALLED_APPS注册的顺序一致，需要在SilkyMiddleware之前，否则会报错
-    'simplepro.middlewares.SimpleMiddleware',
+    'simplecus.middlewares.SimpleMiddleware',
     'silk.middleware.SilkyMiddleware',
 ]
 
@@ -124,7 +124,7 @@ USE_TZ = True
 DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
 STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
 
-# SimplePro
+# Simplecus
 # SIMPLEUI_STATIC_OFFLINE = True
 
 # Media files
@@ -211,7 +211,7 @@ AWS_STORAGE_BUCKET_NAME = env.str("ALIOSS_BUCKET_NAME")
 AWS_S3_ENDPOINT = env.str("ALI_OSS_ENDPOINT")
 AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_ENDPOINT}"
 AWS_S3_ADDRESSING_STYLE = "virtual"
-# FIXME 使用SimplePro模块时，AWS_QUERYSTRING_AUTH=True会导致模板渲染时请求部分静态文件失败
+# FIXME 使用Simplecus模块时，AWS_QUERYSTRING_AUTH=True会导致模板渲染时请求部分静态文件失败
 # FIXME <link rel="stylesheet" href="{% static '/admin/simpleui-x/css/login.css' %}?_=2.1">
 # https://bucket_name.xxx.oss.com?AWSAccessKeyId=LTAI4G2mjcChkWTDqSXRBsWd&Signature=sUajun7wqPRjAseqTH%2BVEhHaQ8U%3D&Expires=1614321623?_=2.1
 # FIXME 路径后 [?_=2.1 | ?_=3.3 | ?_=2021.3] 等此类后缀会使得模板渲染时无法找到存储里oss服务里静态文件

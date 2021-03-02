@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.db import models
-from simplepro.components import fields
+from simplecus.components import fields
 
 
 class BaseModel(models.Model):

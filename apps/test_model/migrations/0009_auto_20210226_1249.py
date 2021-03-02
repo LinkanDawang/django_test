@@ -2,7 +2,7 @@
 
 import datetime
 from django.db import migrations
-import simplepro.components.fields
+import simplecus.components.fields
 
 
 class Migration(migrations.Migration):
@@ -15,21 +15,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='supplier',
             name='create_time',
-            field=simplepro.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
+            field=simplecus.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
         ),
         migrations.AlterField(
             model_name='supplier',
             name='update_time',
-            field=simplepro.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
+            field=simplecus.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
         ),
         migrations.AlterField(
             model_name='uploadfile',
             name='create_time',
-            field=simplepro.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
+            field=simplecus.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
         ),
         migrations.AlterField(
             model_name='uploadfile',
             name='update_time',
-            field=simplepro.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
+            field=simplecus.components.fields.DateTimeField(default=datetime.datetime.now, verbose_name='创建时间'),
         ),
     ]

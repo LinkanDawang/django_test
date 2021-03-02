@@ -4,7 +4,7 @@ from django.contrib.postgres.fields import JSONField
 
 # from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from simplepro.components import fields
+from simplecus.components import fields
 
 
 class TestModel(models.Model):

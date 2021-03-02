@@ -2,7 +2,7 @@
 
 from django.db import migrations
 import django.db.models.deletion
-import simplepro.components.fields
+import simplecus.components.fields
 
 
 class Migration(migrations.Migration):
@@ -15,12 +15,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='uploadfile',
             name='str_input',
-            field=simplepro.components.fields.CharField(default='haha', max_length=128, verbose_name='输入框'),
+            field=simplecus.components.fields.CharField(default='haha', max_length=128, verbose_name='输入框'),
             preserve_default=False,
         ),
         migrations.AddField(
             model_name='uploadfile',
             name='supplier',
-            field=simplepro.components.fields.ForeignKey(blank=True, help_text='选择一个人', null=True, on_delete=django.db.models.deletion.SET_NULL, to='test_model.supplier'),
+            field=simplecus.components.fields.ForeignKey(blank=True, help_text='选择一个人', null=True, on_delete=django.db.models.deletion.SET_NULL, to='test_model.supplier'),
         ),
     ]
