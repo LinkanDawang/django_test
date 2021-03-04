@@ -32,7 +32,7 @@ ENV_NAME = env("ENV_NAME")
 SECRET_KEY = '(bl(2_hu0a)f)4(go!jgpv2%s%9)!(u3htlb%_n#zd=psb$s28'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -53,12 +53,14 @@ DJANGO_APPS = [
 LOCAL_APPS = ['apps.user', 'apps.test_model']
 
 THIRD_APPS = [
-    "silk",
     "rest_framework",
     # "rest_framework_filters",
     "rest_framework_tracking",
     "storages"
 ]
+
+if ENV_NAME == "local":
+    THIRD_APPS.insert(0, "silk")
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_APPS
 
@@ -74,8 +76,10 @@ MIDDLEWARE = [
     # 'apps.utils.middlewares.UploadFileMiddleware',
     # # 顺序与INSTALLED_APPS注册的顺序一致，需要在SilkyMiddleware之前，否则会报错
     'simplecus.middlewares.SimpleMiddleware',
-    'silk.middleware.SilkyMiddleware',
 ]
+
+if ENV_NAME == "local":
+    MIDDLEWARE.append('silk.middleware.SilkyMiddleware')
 
 ROOT_URLCONF = 'config.urls'
 
