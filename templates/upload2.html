@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div>
+  <input type="file" id='fileInput' multiple='true'>
+  <button id="uploadBtn" onclick="upload()">Upload</button>
+  <button id="stopBtn" onclick="stop()">Stop</button>
+  <button id="resumeBtn" onclick="resume()">resume</button>
+  <h2 id='status'></h2>
+</div>
+
+<script type="text/javascript">
+    let credentials = null; // STS凭证
+    let ossClient = null; // oss客户端实例
+    const fileInput = document.getElementById('fileInput'); // 文件选择器
+    const status = document.getElementById('status'); // 状态显示元素
+    const bucket = 'lesliedfs'; // bucket名称
+    const region = 'oss-cn-shanghai'; // oss服务区域名称
+    const partSize = 1024 * 1024; // 每个分片大小(byte)
+    const parallel = 3; // 同时上传的分片数
+    const checkpoints = {}; // 所有分片上传文件的检查点
+
+    // 获取STS Token
+    function getCredential() {
+      return fetch('http://127.0.0.1:8000/api/main/test/')
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          credentials = res;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+
+    // 创建OSS Client
+    async function initOSSClient() {
+      //const { AccessKeyId, AccessKeySecret, SecurityToken } = credentials;
+      AccessKeyId = credentials.AccessKeyId;
+      AccessKeySecret = credentials.AccessKeySecret;
+      SecurityToken = credentials.SecurityToken;
+      ossClient = new OSS.Wrapper({
+        accessKeyId: AccessKeyId,
+        accessKeySecret: AccessKeySecret,
+        stsToken: SecurityToken,
+        bucket: 'lesliedfs', // 【必要】bucket 名称
+        endpoint: 'oss-cn-shanghai.aliyuncs.com',
+        region: 'cn-shanghai'
+      });
+    }
+
+    async function upload() {
+      status.innerText = 'Uploading';
+      // 获取STS Token
+      await getCredential();
+      const { files } = fileInput;
+      const fileList = Array.from(files);
+      const uploadTasks = fileList.forEach(file => {
+        // 如果文件大学小于分片大小，使用普通上传，否则使用分片上传
+        // if (file.size < partSize) {
+        //   commonUpload(file);
+        // } else {
+        //   multipartUpload(file);
+        // }
+        multipartUpload(file)
+      });
+    }
+
+    // 分片上传
+    async function multipartUpload(file) {
+      if (!ossClient) {
+        await initOSSClient();
+      }
+      const fileName = file.name;
+      ossClient.multipartUpload(fileName, file, {
+        parallel,
+        partSize,
+        progress: onMultipartUploadProgress
+      }).then(function (result) {
+        // 生成文件下载地址
+        console.log(result);
+        const url = `http://${bucket}.${region}.aliyuncs.com/${fileName}`;
+        console.log(`Multipart upload ${file.name} succeeded, url === `, url)
+      }).catch(function (e) {
+        console.log(`Multipart upload ${file.name} failed === `, e);
+      });
+    }
+
+    // 暂停上传
+    function stop() {
+      status.innerText = 'Stopping';
+      if (ossClient) ossClient.cancel();
+    }
+
+    // 续传
+    function resume() {
+      status.innerText = 'Resuming';
+      if (ossClient) resumeMultipartUpload();
+    }
+
+    // 分片上传进度改变回调
+    async function onMultipartUploadProgress(progress, checkpoint) {
+      console.log("111111");
+      console.log(`${checkpoint.file.name} 上传进度 ${progress}`);
+      checkpoints[checkpoint.uploadId] = checkpoint;
+      // 判断STS Token是否将要过期，过期则重新获取
+      const { Expiration } = credentials;
+      const timegap = 1;
+      if (Expiration && moment(Expiration).subtract(timegap, 'minute').isBefore(moment())) {
+        console.log(`STS token will expire in ${timegap} minutes，uploading will pause and resume after getting new STS token`);
+        if (ossClient) {
+          ossClient.cancel();
+        }
+        await getCredential();
+        await resumeMultipartUpload();
+      }
+    }
+
+
+
+</script>
+
+</body>
+</html>

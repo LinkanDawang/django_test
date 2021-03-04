@@ -11,15 +11,19 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 from loguru import logger
 
-# ENV Name
-ENV_NAME = 'local'
+env = environ.Env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 APPS_DIR = os.path.join(BASE_DIR, 'apps')  # 应用文件夹
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')  # 日志文件夹
+env.read_env(os.path.join(BASE_DIR, ".env"))
+
+# ENV Name
+ENV_NAME = env("ENV_NAME")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -35,7 +39,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 DJANGO_APPS = [
-    'simplepro',
+    'simplecus',
     'simpleui',
     'import_export',
     'django.contrib.admin',
@@ -53,6 +57,7 @@ THIRD_APPS = [
     "rest_framework",
     # "rest_framework_filters",
     "rest_framework_tracking",
+    "storages"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_APPS
@@ -66,29 +71,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'apps.utils.middlewares.NewCustomMiddleware',
-    'apps.utils.middlewares.UploadFileMiddleware',
+    # 'apps.utils.middlewares.UploadFileMiddleware',
     # # 顺序与INSTALLED_APPS注册的顺序一致，需要在SilkyMiddleware之前，否则会报错
-    'simplepro.middlewares.SimpleMiddleware',
+    'simplecus.middlewares.SimpleMiddleware',
     'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ]
-        },
-    }
-]
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -99,12 +88,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_test',
-        # 'HOST': '127.0.0.1',
-        'HOST': '47.103.4.19',
-        'PORT': '3306',
-        'USER': 'django_test',
-        'PASSWORD': 'test@2020',
+        'NAME': env.str("DATABASE_NAME"),
+        'HOST': env.str("DATABASE_HOST"),
+        'PORT': env.str("DATABASE_PORT"),
+        'USER': env.str("DATABASE_USER"),
+        'PASSWORD': env.str("DATABASE_PASSWORD"),
     }
 }
 
@@ -133,17 +121,48 @@ USE_L10N = True
 USE_TZ = True
 
 
+DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
+STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
+
+# Simplecus
+# SIMPLEUI_STATIC_OFFLINE = True
+
+# Media files
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'media')
+MEDIA_URL = '/media/'
+MEDIAFILES_LOCATION = 'media'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_collect_dir')  # 收集静态文件
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_LOCATION = "static"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-AUTH_USER_MODEL = 'user.Users'
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
+        },
+    }
+]
+
+AUTH_USER_MODEL = 'user.User'
 LOGIN_URL = "/api/user/login/"
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']
 
@@ -162,116 +181,6 @@ for path in [COLLECT_LOG_DIR, INFO_LOG_DIR, SERVER_LOG_DIR, REQUEST_LOG_DIR, CEL
     if not os.path.exists(path):
         os.makedirs(path)
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,  # 禁用已经存在的logger实例
-#     # 日志保存格式
-#     'formatters': {
-#         'standard': {
-#             'format': '[%(asctime)s][file:%(filename)s][lineno:%(lineno)d]'
-#                       '[%(levelname)s][%(message)s]'
-#         },
-#         'normal': {
-#             'format': '[%(levelname)s][%(asctime)s][%(filename)s:%(lineno)d]%(message)s'
-#         },
-#         'collect': {
-#             'format': '%(message)s'
-#         },
-#         'console': {
-#             'format': '[%(asctime)s] %(message)s'
-#         },
-#         'sql': {
-#             'format': '[%(asctime)s] %(module)s %(filename)s %(message)s'
-#         }
-#     },
-#     # 过滤器
-#     'filters': {
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse',
-#         }
-#     },
-#     # 处理器
-#     'handlers': {
-#         # 在终端打印
-#         'console': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_true'],  # debug打开时在屏幕输出信息
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'console'
-#         },
-#         # 记录全部接口调用
-#         'default': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.RotatingFileHandler',  # 日志文件超过指定大小自动切换
-#             'filename': os.path.join(INFO_LOG_DIR, "info.log"),  # 日志文件保存路径
-#             'maxBytes': 1024 * 1024 * 5,  # 日志大小 50M
-#             'backupCount': 3,  # 最大保存日志文件数量
-#             'formatter': 'standard',
-#             'encoding': 'utf-8',
-#         },
-#         'sql': {
-#             'level': 'DEBUG',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(SQL_LOG_DIR, "sql.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'sql',
-#             'encoding': "utf-8"
-#         },
-#         # 专门定义一个收集特定信息的日志
-#         'collect': {
-#             'level': 'ERROR',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(COLLECT_LOG_DIR, "collect.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'normal',
-#             'encoding': "utf-8"
-#         },
-#         # 记录django.server警告以上的日志
-#         'server_handler': {
-#             'level': 'WARNING',
-#             'class': 'logging.handlers.TimedRotatingFileHandler',  # 指定时间间隔后保存到新文件
-#             'filename': os.path.join(SERVER_LOG_DIR, "warning.log"),
-#             'when': 'D',
-#             'backupCount': 30,
-#             'formatter': 'standard',
-#             'encoding': 'utf-8',
-#         },
-#         'request_handler': {
-#             'level': 'ERROR',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(REQUEST_LOG_DIR, "err.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'standard',
-#         },
-#         'celery_handler': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.RotatingFileHandler',
-#             'filename': os.path.join(CELERY_LOG_DIR, "err.log"),
-#             'maxBytes': 1024 * 1024 * 5,
-#             'backupCount': 5,
-#             'formatter': 'standard',
-#         },
-#     },
-#     'loggers': {
-#         'django.server': {
-#             'handlers': ['console'] if ENV_NAME == 'local' else ['server_handler', 'default'],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#         'django.request': {
-#             'handlers': ['request_handler'],
-#             'level': 'ERROR',
-#             'propagate': True,
-#         },
-#     }
-# }
-
 logger.add(
     INFO_LOG_DIR + "/info.log", level="ERROR", format="{time} {level} {message}",
     colorize=True, rotation="5 MB"
@@ -282,19 +191,32 @@ DATA_UPLOAD_MAX_MEMORY_SIZE = 500242880
 
 
 # 配置发送邮箱验证邮件发件人的信息
-EMAIL_HOST = 'smtp.qiye.163.com'  # 发邮件主机
-EMAIL_PORT = 587  # 发邮件端口
-EMAIL_HOST_USER = 'leslie_chan@wochacha.com'  # 授权的邮箱
-EMAIL_HOST_PASSWORD = 'Nx6vhYCV3neVAWZC'  # 邮箱授权时获得的密码，非注册登录密码
-EMAIL_FROM = '时间管理大师<leslie_chan@wochacha.com>'  # 发件人抬头
-EMAIL_USE_TLS = True
+EMAIL_HOST = env.str("EMAIL_HOST")  # 发邮件主机
+EMAIL_PORT = env.str("EMAIL_PORT")  # 发邮件端口
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")  # 授权的邮箱
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")  # 邮箱授权时获得的密码，非注册登录密码
+EMAIL_FROM = env.str("EMAIL_FROM")  # 发件人抬头
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 # Nx6vhYCV3neVAWZC
 
 # fastdfs配置
-FDFS_CLIENT_CONF = os.path.join(BASE_DIR, "config/dfs_client.conf")
-FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
+# FDFS_CLIENT_CONF = os.path.join(BASE_DIR, "config/dfs_client.conf")
+# FDFS_SERVER_IP = 'http://192.168.101.98:8888/'
 
-DEFAULT_FILE_STORAGE = "apps.utils.dfs_storage.FastDfsStorage"
+# Storage
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
+AWS_ACCESS_KEY_ID = env.str("ALI_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = env.str("ALI_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = env.str("ALIOSS_BUCKET_NAME")
+AWS_S3_ENDPOINT = env.str("ALI_OSS_ENDPOINT")
+AWS_S3_ENDPOINT_URL = f"https://{AWS_S3_ENDPOINT}"
+AWS_S3_ADDRESSING_STYLE = "virtual"
+# FIXME 使用Simplecus模块时，AWS_QUERYSTRING_AUTH=True会导致模板渲染时请求部分静态文件失败
+# FIXME <link rel="stylesheet" href="{% static '/admin/simpleui-x/css/login.css' %}?_=2.1">
+# https://bucket_name.xxx.oss.com?AWSAccessKeyId=LTAI4G2mjcChkWTDqSXRBsWd&Signature=sUajun7wqPRjAseqTH%2BVEhHaQ8U%3D&Expires=1614321623?_=2.1
+# FIXME 路径后 [?_=2.1 | ?_=3.3 | ?_=2021.3] 等此类后缀会使得模板渲染时无法找到存储里oss服务里静态文件
+AWS_QUERYSTRING_AUTH = False
 
-# SimplePro
-SIMPLEUI_STATIC_OFFLINE = True
+# RAM用户，用于oss sts临时访问的策略
+ALI_OSS_RAM_ACCESS_KEY = env.str("ALI_OSS_RAM_ACCESS_KEY")
+ALI_OSS_RAM_SECRET_KEY = env.str("ALI_OSS_RAM_SECRET_KEY")

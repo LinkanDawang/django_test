@@ -1,6 +1,8 @@
 import json
 import hashlib
 import datetime
+import oss2
+from django.shortcuts import render
 
 from django.views import View
 from urllib.parse import quote
@@ -9,6 +11,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.mixins import ListModelMixin
 from rest_framework.serializers import ModelSerializer, DictField
+from django.conf import settings
 
 from .models import TestModel
 from viewsets import MyGenericViewSet
@@ -16,19 +19,44 @@ from apps.core.mixins import LogRequestMixin
 from apps.utils.views import LoginRequiredJsonMixin, LoginRequiredMixin
 
 
+class Index2View(View):
+    def get(self, request):
+        return render(request, "upload2.html")
+
+
 class IndexView(View):
     def get(self, request):
-        a = [
-            {"type": "一条", "sales": 38},
-            {"type": "二条", "sales": 52},
-            {"type": "三条", "sales": 61},
-            {"type": "四条", "sales": 145},
-            {"type": "五条", "sales": 48},
-            {"type": "六条", "sales": 38},
-            {"type": "七条", "sales": 38},
-            {"type": "八条", "sales": 38}
-        ]
-        return JsonResponse(a, safe=False)
+        from aliyunsdkcore import client
+        from aliyunsdksts.request.v20150401 import AssumeRoleRequest
+        role_arn = 'acs:ram::1416120736225768:role/oss-uploader'
+        oss_access_key = settings.AWS_ACCESS_KEY_ID
+        oss_secret_key = settings.AWS_SECRET_ACCESS_KEY
+        clt = client.AcsClient(
+            settings.ALI_OSS_RAM_ACCESS_KEY, settings.ALI_OSS_RAM_SECRET_KEY,
+            "cn-shanghai",
+            session_period=300
+        )
+        req = AssumeRoleRequest.AssumeRoleRequest()
+
+        # 设置返回值格式为JSON。
+        req.set_accept_format('json')
+        req.set_RoleArn(role_arn)
+        req.set_RoleSessionName('django-test')
+        # req.set_Policy(policy_text)
+        body = clt.do_action_with_exception(req)
+
+        # 使用RAM账号的AccessKeyId和AccessKeySecret向STS申请临时token。
+        resp_data = json.loads(oss2.to_unicode(body))
+        result = {
+            "code": 0,
+            "RequestId": resp_data["RequestId"],
+            "SecurityToken": resp_data["Credentials"]["SecurityToken"],
+            "AccessKeyId": resp_data["Credentials"]["AccessKeyId"],
+            "AccessKeySecret": resp_data["Credentials"]["AccessKeySecret"],
+            "bucket": settings.AWS_STORAGE_BUCKET_NAME,
+            "region": "cn-shanghai"
+        }
+        return JsonResponse(result)
 
     def post(self, request):
         # from django.core.files.storage import default_storage

@@ -12,7 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path(r"_nested_admin/", include("nested_admin.urls")),
     path('api/', include(apipatterns)),
-    # re_path('^$', TemplateView.as_view(template_name="index.html"), name='account'),
+    re_path('^$', TemplateView.as_view(template_name="index.html"), name='account'),
     path("silk/", include("silk.urls", namespace='silk'))
 ]
 

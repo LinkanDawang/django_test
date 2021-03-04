@@ -3,3 +3,6 @@ __pycache__
 /logs
 /.idea
 .DS_Store
+.env
+*.json
+simplepro.lic

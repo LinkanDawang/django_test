@@ -1,0 +1,322 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+{% block extrahead %}
+    {{ block.super }}
+    <!-- layer依赖jquery -->
+<script type="text/javascript" src="{% static 'js/qrcode.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-2.0.0.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/layer.js' %}"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/es6-promise/4.2.8/es6-promise.min.js"></script>
+<!-- oss库依赖promisejs -->
+<script type="text/javascript" src="https://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    .v-modal {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background: #000000;
+        display: none;
+    }
+    .el-dialog__wrapper {
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-family: NotoSansSC-Regular, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+        color: #032544;
+        font-size: 12px;
+        box-sizing: inherit;
+        border-width: thin;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: auto;
+        margin: 0;
+        z-index: 2002;
+        position: fixed;
+        display: none;
+    }
+    .el-dialog {
+        position: relative;
+        margin: 0 auto 50px;
+        background: #FFFFFF;
+        border-radius: 2px;
+        -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 50%;
+    }
+    .el-dialog__header {
+        padding: 20px;
+        padding-bottom: 10px;
+    }
+    .el-dialog__title {
+        line-height: 24px;
+        font-size: 18px;
+        color: #303133;
+    }
+
+    .el-icon-close {
+        content: "\e6db";
+    }
+    .el-dialog__headerbtn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    .el-dialog__body {
+        padding: 20px;
+        color: #737A86;
+        font-size: 14px;
+        word-break: break-all;
+    }
+    .el-dialog__footer {
+        padding: 20px;
+        padding-top: 10px;
+        text-align: right;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .el-button--medium {
+        padding: 10px 20px;
+        font-size: 14px;
+        border-radius: 4px;
+        margin-top: 20px;
+    }
+    .demo {
+        //width: 25%;
+        padding: 2em 0;
+        background: linear-gradient(to right, #2c3b4e, #4a688a, #2c3b4e);
+    }
+
+    .progress {
+        height: 25px;
+        width: 215%;
+        background: #262626;
+        padding: 5px;
+        overflow: visible;
+        border-radius: 20px;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #7992a8;
+        margin-top: 50px;
+    }
+
+    .progress .progress-bar {
+        border-radius: 20px;
+        position: relative;
+        animation: animate-positive 2s;
+    }
+
+    .progress .progress-value {
+        display: block;
+        padding: 3px 7px;
+        font-size: 13px;
+        color: #fff;
+        border-radius: 4px;
+        background: #191919;
+        border: 1px solid #000;
+        position: absolute;
+        top: -40px;
+        right: -10px;
+    }
+
+    .progress .progress-value:after {
+        content: "";
+        border-top: 10px solid #191919;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        position: absolute;
+        bottom: -6px;
+        left: 26%;
+    }
+
+    .progress-bar.active {
+        animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+    }
+
+    @-webkit-keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+
+    @keyframes animate-positive {
+        0% {
+            width: 0;
+        }
+    }
+    </style>
+{% endblock %}
+
+{% block inline_field_sets %}
+    {{ block.super }}
+<div class="v-modal" tabindex="0" style="z-index: 2004;"></div>
+<div class="el-dialog__wrapper" style="z-index: 2008;">
+    <div role="dialog" aria-modal="true" aria-label="dialog" class="el-dialog scroll-dialog" style="margin-top: 15vh; width: 600px;">
+        <div class="el-dialog__header">
+            <span class="el-dialog__title">上传进度</span>
+            <button type="button" aria-label="Close" class="el-dialog__headerbtn" onclick="cancel_upload()">
+                <i class="el-dialog__close el-icon el-icon-close">X</i>
+            </button>
+        </div>
+        <div class="el-dialog__body">
+            <div class="demo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-6">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-info progress-bar-striped active" id="mt-progress-length"
+                                 style="width: 0%;">
+                                    <div class="progress-value" id="mt-progress-value">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="el-dialog__footer">
+            <div class="dialog-footer">
+                <button type="button" class="el-button mt-20 el-button--default el-button--medium" onclick="cancel_upload()"><!----><!---->
+                    <span>取消上传</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block admin_change_form_document_ready %}
+    <!-- 说明： id_file 控件是一个FileField， -->
+    <!-- 说明： id_extra_file_url 控件是一个TextField， -->
+    <script type="text/javascript">
+        // 初始化oss的client！
+        var _percent = 0;
+        var _file_name = "";
+        var uploadId = "";
+        const client = new OSS.Wrapper({
+            region: 'oss-cn-shanghai',
+            //云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用STS方式来进行API访问
+            accessKeyId: '{{ oss_access_key }}', // 【必要】子账号的keyId
+            accessKeySecret: '{{ oss_secret_key }}', // 【必要】子账号的KeySecret
+            endpoint: '{{ oss_endpoint }}',
+            //{#stsToken: '<Your securityToken(STS)>',#}  // 【非必要】建议开通sts，这样更安全。
+            bucket: '{{ oss_bucket_name }}' // 【必要】bucket 名称
+        });
+        $('#id_file_temp').attr("readonly",true);
+
+        // 取消上传
+        function cancel_upload () {
+            $('.v-modal').css("display", "none");
+            $('.el-dialog__wrapper').css("display", "none");
+            if (uploadId != ""){
+            console.log(_file_name);
+            client.abortMultipartUpload(_file_name, uploadId);
+            }
+        };
+        function close_box () {
+            $('.v-modal').css("display", "none");
+            $('.el-dialog__wrapper').css("display", "none");
+        };
+        (function ($) {
+            $("#id_file").change(function eventStart(e) {
+                $(".v-modal").css("display", "block");
+                $(".el-dialog__wrapper").css("display", "block");
+                if (e.target.files.length === 0) {
+                    console.log("没有选择文件！");
+                    return;
+                }
+                let fileName = e.target.files[0].name;
+                let tmp = fileName;
+
+                let extension = fileName.substring(fileName.lastIndexOf('.') + 1);
+                if (extension) {
+                    // 给文件名添加扩展信息。
+                    let timestamp = (new Date()).valueOf();
+                    tmp = fileName.substring(0, fileName.lastIndexOf('.')) + "_" + timestamp + "." + extension;
+                }
+                // 添加存储路径，请根据实际情况填写。
+                _tmp = "media/upload/" + tmp;
+                _file_name = _tmp;
+                tmp = "upload/" + tmp;
+
+                // 使用layer来做提示框
+                //let index = layer.load(1, {shade: false}); //0代表加载的风格，支持0-2
+                client.multipartUpload(_tmp, e.target.files[0], {
+                    parallel: 2,
+                    // 上传进度
+                    progress: function* (percent, cpt) {
+                        uploadId = cpt.uploadId;
+                        var _percent = percent * 100;
+                        //背景恢复
+                        $(".progress").css("background", "#262626");
+                        //归零 隐藏
+                        $("#mt-progress-length").css({"width": "0%", "opacity": "1"});
+                        $("#mt-progress-value").html(0);
+                        //$(".show_result").html(_percent + "%");
+                        var percentStr = String(_percent);
+                        // console.log(cpt);
+                        if (percentStr == "100") {
+                            percentStr = "100.0";
+                        }
+                        percentStr = percentStr.substring(0, percentStr.indexOf("."));
+                        $("#mt-progress-value").html(percentStr + "%");
+                        $("#mt-progress-length").css("width", percentStr + "%");
+
+                        if (percentStr == "100") {
+                            setTimeout(function () {
+                                //背景成绿色
+                                $(".progress").css("background", "#15AD66");
+                                //归零 隐藏
+                                $("#mt-progress-length").css({"width": "0%", "opacity": "0"});
+                            }, 500);
+                        }
+                    }
+                }).then(function (result) {
+                        //{#console.log(result);#}
+                        // console.log(result);
+                        // 清除input
+                        close_box();
+                        let $input = $("#id_file_temp");
+                        $input.replaceWith($input.val('').clone(true));
+
+                        // 这儿指定了一个CDN加速域名，避免直接使用OSS域名，这儿请填写实际的cdn域名。
+                        let finalURL = 'http://wcc-app.oss-cn-shanghai.aliyuncs.com/' + result.name;
+                        //{#$('#id_file').val(result.name);#}
+                        $('#id_file_temp').val(tmp);
+                        $('#id_file').remove();
+                        //$('#id_file').val(finalURL);
+                        //console.log(finalURL);
+
+                        //layer.close(index);
+                    }).catch(function (e) {
+                    //alert("取消上传");
+                    //layer.close(index);
+                    //layer.msg('上传出错，请联系管理员！');
+
+                });
+                //multipartUpload(client, tmp, e.target.files[0])
+                console.log("=========");
+            });
+        })(django.jQuery);
+
+        const progress = (p, _checkpoint) => {
+          console.log(p); // Object的上传进度。
+          console.log(_checkpoint); // 分片上传的断点信息。
+        };
+
+    </script>
+
+{% endblock %}
