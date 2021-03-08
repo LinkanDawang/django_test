@@ -125,7 +125,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-DEFAULT_FILE_STORAGE = "apps.core.storages.StaticStorage"
+DEFAULT_FILE_STORAGE = "apps.core.storages.MediaStorage"
 STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
 
 # Simplecus
