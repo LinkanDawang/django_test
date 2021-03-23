@@ -13,6 +13,6 @@ class RequestLog(BaseAPIRequestLog):
     ip_address = models.CharField(max_length=100, null=True, blank=True, verbose_name="IP归属地址")
 
     class Meta:
-        verbose_name = verbose_name_plural = "接口对接日志记录表"
+        verbose_name = verbose_name_plural = "请求记录"
         managed = True
         db_table = 'request_log'
