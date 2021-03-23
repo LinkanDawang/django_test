@@ -1,8 +1,8 @@
-FROM python:3
+FROM python:3.8
 
 WORKDIR /usr/local/projects
 COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt -i https://pypi.wochacha.cn/simple/
 
 
 EXPOSE 8001
