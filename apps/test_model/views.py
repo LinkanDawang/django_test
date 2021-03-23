@@ -135,3 +135,14 @@ class TestDRFViewSet(MyGenericViewSet, ListModelMixin):
         return Response(data=serializer.data)
 
 
+class WatchGtViewSet(LogRequestMixin, MyGenericViewSet, ListModelMixin):
+    queryset = TestModel.objects.all()
+    serializer_class = {
+        "default": TestDRFSerialiaer
+    }
+    logging_actions = ["list", ]
+
+    def list(self, request, *args, **kwargs):
+        return render(request, "Watch.html")
+
+
