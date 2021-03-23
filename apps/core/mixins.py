@@ -54,7 +54,7 @@ class LogRequestMixin(BaseLoggingMixin):
             format_result['city'] = add_info.get('city')
             if add_info.get('province') == []:
                 format_result['country'] = '外国'
-        return format_result['province'] + "-" + format_result['city']
+        return format_result['province'] + "-" + format_result['city'] if format_result['province'] else format_result['city']
 
     def should_log(self, request, response):
         """
