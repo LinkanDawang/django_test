@@ -1,4 +1,5 @@
-from rest_framework_tracking.models import APIRequestLog
+from apps.api_log.models import RequestLog
+
 from rest_framework_tracking.base_mixins import BaseLoggingMixin
 
 
@@ -25,5 +26,6 @@ class LogRequestMixin(BaseLoggingMixin):
 
         Defaults on saving the data on the db.
         """
-        APIRequestLog(**self.log).save()
+        self.log["log_type"] = RequestLog.IN
+        RequestLog(**self.log).save()
 
