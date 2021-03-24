@@ -11,6 +11,7 @@ class RequestLog(BaseAPIRequestLog):
     device_model = models.CharField(max_length=255, null=True, blank=True, verbose_name='设备型号')
     device_name = models.CharField(max_length=255, null=True, blank=True, verbose_name='设备名称')
     ip_address = models.CharField(max_length=100, null=True, blank=True, verbose_name="IP归属地址")
+    telco = models.CharField(max_length=50, null=True, blank=True, verbose_name="电信运营商")
 
     class Meta:
         verbose_name = verbose_name_plural = "请求记录"
