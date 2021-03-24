@@ -63,10 +63,13 @@ def baidu_ip2location(ip):
     r = requests.post(url, headers=header, data=json.dumps(body))
     # {'country': '中国', 'province': '浙江', 'city': '杭州', 'county': '余杭', 'isp': '中国移动'}
     if r.status_code == 200:
+        result = r.json()
+        telco = result.pop("isp")
         address = "-".join([v for _, v in r.json().items()])
     else:
         address = None
-    return address
+        telco = None
+    return address, telco
 
 
 class LogRequestMixin(BaseLoggingMixin):
@@ -135,8 +138,8 @@ class LogRequestMixin(BaseLoggingMixin):
 
         Defaults on saving the data on the db.
         """
-        ip_address = baidu_ip2location(self.log["remote_addr"])
-        self.log.update({"ip_address": ip_address})
+        ip_address, telco = baidu_ip2location(self.log["remote_addr"])
+        self.log.update({"ip_address": ip_address, "telco": telco})
         self.log["log_type"] = RequestLog.IN
         RequestLog(**self.log).save()
 
