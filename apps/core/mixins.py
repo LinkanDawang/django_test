@@ -1,4 +1,8 @@
+import hmac
+import time
 import json
+import urllib
+import hashlib
 import requests
 import datetime
 from user_agents import parse as ua_parse
@@ -7,19 +11,67 @@ from rest_framework_tracking.base_mixins import BaseLoggingMixin
 from apps.api_log.models import RequestLog
 
 
+def baidu_ip2location(ip):
+    # 1.AK/SK、host、method、URL绝对路径、querystring
+    app_key = "a1e4385b50f7403c84a18a7bbbed8798"
+    app_secret = "c5249ef022ea48f682baacaf19a66edb"
+    host = "ipapi.api.bdymkt.com"
+    method = "POST"
+    query = ""
+    uri = "/ip2location/retrieve"
+
+    # 2.x-bce-date
+    x_bce_date = time.gmtime()
+    x_bce_date = time.strftime('%Y-%m-%dT%H:%M:%SZ', x_bce_date)
+    # 3.header和signedHeaders
+    header = {
+        "Host": host,
+        "content-type": "application/json;charset=utf-8",
+        "x-bce-date": x_bce_date
+    }
+    signed_headers = "content-type;host;x-bce-date"
+    # 4.认证字符串前缀
+    auth_string_prefix = "bce-auth-v1" + "/" + app_key + "/" + x_bce_date + "/" + "1800"
+    # 5.生成CanonicalRequest
+    # 5.1生成CanonicalURI
+    canonical_uri = urllib.parse.quote(uri)  # windows下为urllib.parse.quote，Linux下为urllib.quote
+    # 5.2生成CanonicalQueryString
+    canonical_query_string = query  # 如果您调用的接口的query比较复杂的话，需要做额外处理
+    # 5.3生成CanonicalHeaders
+    result = []
+    for key, value in header.items():
+        temp_str = str(urllib.parse.quote(key.lower(), safe="")) + ":" + str(urllib.parse.quote(value, safe=""))
+        result.append(temp_str)
+    result.sort()
+    canonical_headers = "\n".join(result)
+    # 5.4拼接得到CanonicalRequest
+    canonical_request = method + "\n" + canonical_uri + "\n" + canonical_query_string + "\n" + canonical_headers
+    # 6.生成signingKey
+    signingkey = hmac.new(app_secret.encode('utf-8'), auth_string_prefix.encode('utf-8'), hashlib.sha256)
+    # 7.生成Signature
+    signature = hmac.new((signingkey.hexdigest()).encode('utf-8'), canonical_request.encode('utf-8'), hashlib.sha256)
+    # 8.生成Authorization并放到header里
+    header['X-Bce-Signature'] = auth_string_prefix + "/" + signed_headers + "/" + signature.hexdigest()
+    # 9.发送API请求并接受响应
+
+    body = {
+        "ip": ip
+    }
+
+    url = "http://" + host + uri
+
+    r = requests.post(url, headers=header, data=json.dumps(body))
+    # {'country': '中国', 'province': '浙江', 'city': '杭州', 'county': '余杭', 'isp': '中国移动'}
+    if r.status_code == 200:
+        address = "-".join([v for _, v in r.json().items()])
+    else:
+        address = None
+    return address
+
+
 class LogRequestMixin(BaseLoggingMixin):
     need_log = False
     logging_actions = []
-
-    def baidu_ip(self, ip):
-        datetime.datetime.utcnow()
-        url = "https://ipapi.api.bdymkt.com/ip2location/retrieve"
-        headers = {
-            "timestamp": datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S"),
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36 Edg/88.0.705.81"
-        }
-        x = requests.post(url, data={"ip": ip})
-        print(x.json())
 
     def get_address_from_ip(self, ip):
         """
@@ -74,9 +126,6 @@ class LogRequestMixin(BaseLoggingMixin):
             self.log.update({"device_model": device_model})
             # print(user_agent.device.brand)  # Samsung
             # print(user_agent.device.model)  # SM-G900P
-        remote_addr = self._get_ip_address(request)
-        ip_address = self.get_address_from_ip(remote_addr)
-        self.log.update({"ip_address": ip_address})
         response = super(LogRequestMixin, self).finalize_response(request, response, *args, **kwargs)
         return response
 
@@ -86,6 +135,8 @@ class LogRequestMixin(BaseLoggingMixin):
 
         Defaults on saving the data on the db.
         """
+        ip_address = baidu_ip2location(self.log["remote_addr"])
+        self.log.update({"ip_address": ip_address})
         self.log["log_type"] = RequestLog.IN
         RequestLog(**self.log).save()
 
