@@ -65,7 +65,7 @@ def baidu_ip2location(ip):
     if r.status_code == 200:
         result = r.json()
         telco = result.pop("isp")
-        address = "-".join([v for _, v in r.json().items()])
+        address = "-".join([v for _, v in result.items()])
     else:
         address = None
         telco = None

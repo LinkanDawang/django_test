@@ -15,7 +15,8 @@ class ApiDockingLogAdmin(admin.ModelAdmin):
         "method",
         'device_model',
         'remote_addr',
-        'ip_address'
+        'ip_address',
+        'telco'
     )
     list_filter = ("method", "status_code")
     search_fields = ('path',)
@@ -39,6 +40,7 @@ class ApiDockingLogAdmin(admin.ModelAdmin):
             'response',
             'errors',
             'status_code',
+            'telco'
         )
 
     def has_add_permission(self, request):
