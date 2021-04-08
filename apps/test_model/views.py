@@ -16,10 +16,11 @@ from django.conf import settings
 from .models import TestModel
 from viewsets import MyGenericViewSet
 from apps.core.mixins import LogRequestMixin
-from apps.utils.views import LoginRequiredJsonMixin, LoginRequiredMixin
+from apps.utils.views import LoginRequiredJsonMixin, LoginRequiredPageMixin, login_required_json
 
 
 class Index2View(View):
+    @login_required_json
     def get(self, request):
         return render(request, "upload2.html")
 

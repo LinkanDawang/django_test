@@ -15,6 +15,15 @@ class TestModel(models.Model):
         db_table = "test_table"
 
 
+class Test2Model(models.Model):
+    conf = models.CharField(max_length=50, null=True, blank=True, verbose_name='联系人信息')
+
+    class Meta:
+        verbose_name = verbose_name_plural = '表'
+        managed = False
+        db_table = "test2_table"
+
+
 class Supplier(BaseModel):
     name = models.CharField(max_length=128, null=True, blank=True, verbose_name="名称")
     fname = models.CharField(max_length=128, null=True, blank=True, verbose_name="简称")
