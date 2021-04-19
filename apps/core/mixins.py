@@ -76,41 +76,6 @@ class LogRequestMixin(BaseLoggingMixin):
     need_log = False
     logging_actions = []
 
-    def get_address_from_ip(self, ip):
-        """
-        根据IP解析出地址
-        :param ip: ip
-        :return: 解析出来的地址
-         {
-         'status': '1', 'info': 'OK', 'infocode': '10000',
-          'province': '上海市', 'city': '上海市', 'adcode': '310000',
-          'rectangle': '120.8397067,30.77980118;122.1137989,31.66889673'}
-          ip,ip_country,ip_province,ip_city,ip_county,
-          lat,lon,gps_country,gps_province,gps_city,
-          gps_county,gps_address
-        """
-
-        format_result = {'country': None, 'province': None, 'city': None}
-        base_url = 'https://restapi.amap.com/v3/ip?'
-        params = {
-            'key': "19041ae76e39ddd949a2f895a78e399d",
-            'ip': ip,
-            'sign': None,
-            'output': 'json'
-        }
-        format_result['country'] = '中国'
-        if ip == '127.0.0.1' or ip.startswith('192.168.') or ip.startswith('172.16.'):
-            format_result['province'] = '上海市'
-            format_result['city'] = '上海市'
-        else:
-            response = requests.get(base_url, params=params)
-            add_info = json.loads(response.text)
-            format_result['province'] = add_info.get('province')
-            format_result['city'] = add_info.get('city')
-            if add_info.get('province') == []:
-                format_result['country'] = '外国'
-        return format_result['province'] + "-" + format_result['city'] if format_result['province'] else format_result['city']
-
     def should_log(self, request, response):
         """
         Method that should return a value that evaluated to True if the request should be logged.
@@ -130,7 +95,17 @@ class LogRequestMixin(BaseLoggingMixin):
             # print(user_agent.device.brand)  # Samsung
             # print(user_agent.device.model)  # SM-G900P
         response = super(LogRequestMixin, self).finalize_response(request, response, *args, **kwargs)
+        # if "text/html" in response._headers["content-type"][1]:
+        #     ...
         return response
+
+    def _handle_ip(self):
+        ip = self.log["remote_addr"]
+        if ip == '127.0.0.1' or ip.startswith('192.168.') or ip.startswith('172.16.'):
+            ...
+        else:
+            ip_address, telco = baidu_ip2location(ip)
+            self.log.update({"ip_address": ip_address, "telco": telco})
 
     def handle_log(self):
         """
@@ -138,8 +113,7 @@ class LogRequestMixin(BaseLoggingMixin):
 
         Defaults on saving the data on the db.
         """
-        ip_address, telco = baidu_ip2location(self.log["remote_addr"])
-        self.log.update({"ip_address": ip_address, "telco": telco})
+        self._handle_ip()
         self.log["log_type"] = RequestLog.IN
         RequestLog(**self.log).save()
 

@@ -79,6 +79,9 @@ class ActiveView(View):
 
 
 class LoginView(View):
+    def get(self, request):
+        return render(request, "account.html")
+
     def post(self, request):
         username = request.POST.get("username")
         password = request.POST.get("password")
