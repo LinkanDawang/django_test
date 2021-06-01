@@ -9,7 +9,7 @@ from apps.test_model.views import WatchGtViewSet
 
 apipatterns = [
     path("main/", include('apps.test_model.urls', namespace="test")),  # test模块
-    path("user/", include('apps.user.urls', namespace="user"))  # 用户模块
+    path("users/", include('apps.user.urls', namespace="user"))  # 用户模块
 ]
 
 urlpatterns = [
