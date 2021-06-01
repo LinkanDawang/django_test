@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': '接口对接日志记录表',
                 'verbose_name_plural': '接口对接日志记录表',
-                'db_table': 'log"."api_docking_log',
+                'db_table': 'api_docking_log',
                 'managed': True,
             },
         ),

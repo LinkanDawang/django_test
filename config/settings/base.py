@@ -89,14 +89,21 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': env.str("DATABASE_NAME"),
+#         'HOST': env.str("DATABASE_HOST"),
+#         'PORT': env.str("DATABASE_PORT"),
+#         'USER': env.str("DATABASE_USER"),
+#         'PASSWORD': env.str("DATABASE_PASSWORD"),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': env.str("DATABASE_NAME"),
-        'HOST': env.str("DATABASE_HOST"),
-        'PORT': env.str("DATABASE_PORT"),
-        'USER': env.str("DATABASE_USER"),
-        'PASSWORD': env.str("DATABASE_PASSWORD"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'local.db')
     }
 }
 
@@ -125,8 +132,8 @@ USE_L10N = True
 USE_TZ = True
 
 
-DEFAULT_FILE_STORAGE = "apps.core.storages.MediaStorage"
-STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
+# DEFAULT_FILE_STORAGE = "apps.core.storages.MediaStorage"
+# STATICFILES_STORAGE = "apps.core.storages.StaticStorage"
 
 # Simplecus
 # SIMPLEUI_STATIC_OFFLINE = True
