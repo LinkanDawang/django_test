@@ -62,7 +62,7 @@ loginButton.addEventListener("click", () => {
         success: function (data) {
             if (data.code == 200){
                 alert("登入成功");
-                window.open("index/index.html");
+                window.open("/");
             }
             else {
                 alert(data.msg);
